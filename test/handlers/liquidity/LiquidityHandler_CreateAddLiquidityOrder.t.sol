@@ -111,6 +111,13 @@ contract LiquidityHandler_CreateAddLiquidityOrder is LiquidityHandler_Base {
     assertEq(liquidityHandler.nextExecutionOrderIndex(), 0, "Order Index After Executed Order");
   }
 
+  function test_correctness_addLiquidityOrderToAccount() external {
+    _createAddLiquidityOrderToAccount(BOB);
+
+    assertEq(liquidityHandler.getLiquidityOrders().length, 1, "Order Amount After Executed Order");
+    assertEq(liquidityHandler.nextExecutionOrderIndex(), 0, "Order Index After Executed Order");
+  }  
+
   function _createAddLiquidityOrder() internal {
     vm.deal(ALICE, 5 ether); //deal with out of gas
     wbtc.mint(ALICE, 1 ether);
@@ -137,6 +144,42 @@ contract LiquidityHandler_CreateAddLiquidityOrder is LiquidityHandler_Base {
     vm.stopPrank();
 
     assertEq(_beforeExecuteOrders[_latestOrderIndex].account, ALICE, "Alice Order.account");
+    assertEq(_beforeExecuteOrders[_latestOrderIndex].token, address(wbtc), "Alice Order.token");
+    assertEq(_beforeExecuteOrders[_latestOrderIndex].amount, 1 ether, "Alice Order.amount");
+    assertEq(_beforeExecuteOrders[_latestOrderIndex].minOut, 1 ether, "Alice Order.minOut");
+    assertEq(_beforeExecuteOrders[_latestOrderIndex].actualAmountOut, 0, "Alice Order.actualAmountOut");
+    assertEq(_beforeExecuteOrders[_latestOrderIndex].isAdd, true, "Alice Order.isAdd");
+    assertEq(_beforeExecuteOrders[_latestOrderIndex].isNativeOut, false, "Alice Order.isNativeOut");
+  }
+
+  function _createAddLiquidityOrderToAccount(address account) internal {
+    vm.deal(ALICE, 5 ether); //deal with out of gas
+    wbtc.mint(ALICE, 1 ether);
+
+    vm.startPrank(ALICE);
+
+    wbtc.approve(address(liquidityHandler), type(uint256).max);
+
+    uint256 _latestOrderIndex = liquidityHandler.createAddLiquidityOrderToAccount{ value: 5 ether }(
+      account,
+      address(wbtc),
+      1 ether,
+      1 ether,
+      5 ether,
+      false,
+      false
+    );
+
+    // Assertion after createLiquidity
+    // alice should has 0 wbtc (open order)
+    // handler should has 1 order on alice
+    assertEq(wbtc.balanceOf(ALICE), 0, "User Liquidity Balance");
+
+    ILiquidityHandler.LiquidityOrder[] memory _beforeExecuteOrders = liquidityHandler.getLiquidityOrders();
+
+    vm.stopPrank();
+
+    assertEq(_beforeExecuteOrders[_latestOrderIndex].account, account, "Alice Order.account");
     assertEq(_beforeExecuteOrders[_latestOrderIndex].token, address(wbtc), "Alice Order.token");
     assertEq(_beforeExecuteOrders[_latestOrderIndex].amount, 1 ether, "Alice Order.amount");
     assertEq(_beforeExecuteOrders[_latestOrderIndex].minOut, 1 ether, "Alice Order.minOut");

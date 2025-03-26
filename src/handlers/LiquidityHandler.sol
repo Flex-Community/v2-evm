@@ -161,7 +161,7 @@ contract LiquidityHandler is OwnableUpgradeable, ReentrancyGuardUpgradeable, ILi
     uint256 _executionFee,
     bool _shouldWrap
   ) external payable nonReentrant onlyAcceptedToken(_tokenIn) returns (uint256 _orderId) {
-    return _createAddLiquidityOrder(_tokenIn, _amountIn, _minOut, _executionFee, _shouldWrap, false);
+    return _createAddLiquidityOrder(msg.sender, _tokenIn, _amountIn, _minOut, _executionFee, _shouldWrap, false);
   }
 
   /// @notice Create a new AddLiquidity order and maybe participate in HLP Surge event
@@ -179,10 +179,31 @@ contract LiquidityHandler is OwnableUpgradeable, ReentrancyGuardUpgradeable, ILi
     bool _shouldWrap,
     bool _isNotAutoStake
   ) external payable nonReentrant onlyAcceptedToken(_tokenIn) returns (uint256 _orderId) {
-    return _createAddLiquidityOrder(_tokenIn, _amountIn, _minOut, _executionFee, _shouldWrap, _isNotAutoStake);
+    return _createAddLiquidityOrder(msg.sender, _tokenIn, _amountIn, _minOut, _executionFee, _shouldWrap, _isNotAutoStake);
+  }
+
+  /// @notice Create a new AddLiquidity order and maybe participate in HLP Surge event
+  /// @param _account address of the order owner
+  /// @param _tokenIn address token in
+  /// @param _amountIn amount token in (based on decimals)
+  /// @param _minOut minHLP out
+  /// @param _executionFee The execution fee of order
+  /// @param _shouldWrap in case of sending native token
+  /// @param _isNotAutoStake If false, HLP will be auto-staked to HLP Staking. If true, HLP will go to user's wallet
+  function createAddLiquidityOrderToAccount(
+    address _account,
+    address _tokenIn,
+    uint256 _amountIn,
+    uint256 _minOut,
+    uint256 _executionFee,
+    bool _shouldWrap,
+    bool _isNotAutoStake
+  ) external payable nonReentrant onlyAcceptedToken(_tokenIn) returns (uint256 _orderId) {
+    return _createAddLiquidityOrder(_account, _tokenIn, _amountIn, _minOut, _executionFee, _shouldWrap, _isNotAutoStake);
   }
 
   function _createAddLiquidityOrder(
+    address _account,
     address _tokenIn,
     uint256 _amountIn,
     uint256 _minOut,
@@ -206,7 +227,7 @@ contract LiquidityHandler is OwnableUpgradeable, ReentrancyGuardUpgradeable, ILi
     _orderId = liquidityOrders.length;
     liquidityOrders.push(
       LiquidityOrder({
-        account: payable(msg.sender),
+        account: payable(_account),
         orderId: _orderId,
         token: _tokenIn,
         amount: _amountIn,

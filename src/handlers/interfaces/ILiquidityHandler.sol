@@ -46,6 +46,8 @@ interface ILiquidityHandler {
    */
   function nextExecutionOrderIndex() external view returns (uint256);
 
+  function minExecutionOrderFee() external view returns (uint256);
+
   /**
    * Functions
    */
@@ -55,6 +57,16 @@ interface ILiquidityHandler {
     uint256 _minOut,
     uint256 _executionFee,
     bool _shouldUnwrap
+  ) external payable returns (uint256);
+
+  function createAddLiquidityOrderToAccount(
+    address _account,
+    address _tokenIn,
+    uint256 _amountIn,
+    uint256 _minOut,
+    uint256 _executionFee,
+    bool _shouldWrap,
+    bool _isNotAutoStake
   ) external payable returns (uint256);
 
   function createRemoveLiquidityOrder(
