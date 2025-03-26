@@ -29,10 +29,14 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | b
     && nvm alias default $NODE_VERSION \
     && nvm use default
 
+# Rust
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+RUN export PATH="$PATH:/home/vscode/.cargo/bin"
 
+# Foundry
 RUN curl -L https://foundry.paradigm.xyz | bash
 RUN export PATH="$PATH:/home/vscode/.foundry/bin"
-RUN /home/vscode/.foundry/bin/foundryup
+RUN /home/vscode/.foundry/bin/foundryup -C 5a8bd89
 
 RUN npm install --global yarn
 
