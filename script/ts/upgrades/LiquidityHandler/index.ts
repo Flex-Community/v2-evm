@@ -18,20 +18,24 @@ async function main() {
   const newImplementation = await upgrades.prepareUpgrade(liquidityHandler, LiquidityHandler);
   console.log(`[upgrade/LiquidityHandler] Done`);
 
-  console.log(`[upgrade/LiquidityHandler] New LiquidityHandler Implementation address: ${newImplementation}`);
-  await proxyAdminWrapper.upgrade(liquidityHandler, newImplementation.toString());
-  console.log(`[upgrade/LiquidityHandler] Upgraded!`);
+  console.log(`[upgrade/LiquidityHandler] Verify contract on Tenderly at`, newImplementation);
+  if (network.name != "tenderly") {
+    console.log(`Verifying on-chain...`);
+    await run("verify:verify", {
+      address: newImplementation,
+      constructorArguments: [],
+    });
+  }
 
-  console.log(`[upgrade/LiquidityHandler] Verify contract on Tenderly at`, await getImplementationAddress(network.provider, config.handlers.liquidity!));
+  console.log(`Verifying Tenderly...`);
   await tenderly.verify({
-    address: await getImplementationAddress(network.provider, config.handlers.liquidity!),
+    address: newImplementation,
     name: "LiquidityHandler",
   });
 
-  await run("verify:verify", {
-    address: await getImplementationAddress(network.provider, config.handlers.liquidity!),
-    constructorArguments: [],
-  });
+  console.log(`[upgrade/LiquidityHandler] New LiquidityHandler Implementation address: ${newImplementation}`);
+  await proxyAdminWrapper.upgrade(liquidityHandler, newImplementation.toString());
+  console.log(`[upgrade/LiquidityHandler] Upgraded!`);
 
 }
 
