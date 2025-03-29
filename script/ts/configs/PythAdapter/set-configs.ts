@@ -22,6 +22,11 @@ const inputs = [
     pythPriceId: ethers.utils.formatBytes32String("USDC"),
     inverse: false,
   },
+  {
+    assetId: ethers.utils.formatBytes32String("SOL"),
+    pythPriceId: ethers.utils.formatBytes32String("SOL"),
+    inverse: false,
+  },
 ];
 
 async function main(chainId: number) {

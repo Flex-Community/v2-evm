@@ -55,6 +55,7 @@ export const ecoPythAssetIdByIndex = [
   ethers.utils.formatBytes32String("ETH"), //0x4554480000000000000000000000000000000000000000000000000000000000
   ethers.utils.formatBytes32String("BTC"), //0x4254430000000000000000000000000000000000000000000000000000000000
   ethers.utils.formatBytes32String("USDC"), //0x5553444300000000000000000000000000000000000000000000000000000000
+  ethers.utils.formatBytes32String("SOL"), //0x534f4c0000000000000000000000000000000000000000000000000000000000
   // ethers.utils.formatBytes32String("DAI"),
   // ethers.utils.formatBytes32String("JPY"),
   // ethers.utils.formatBytes32String("XAU"),

@@ -7,9 +7,11 @@ import { OwnerWrapper } from "../../wrappers/OwnerWrapper";
 import { passChainArg } from "../../utils/main-fn-wrappers";
 
 const ASSET_IDS = [
-  ethers.utils.formatBytes32String("ETH"),
-  ethers.utils.formatBytes32String("BTC"),
-  ethers.utils.formatBytes32String("USDC"),
+  // Disable all assets except SOL
+  // ethers.utils.formatBytes32String("ETH"),
+  // ethers.utils.formatBytes32String("BTC"),
+  // ethers.utils.formatBytes32String("USDC"),
+  ethers.utils.formatBytes32String("SOL"),
   // ethers.utils.formatBytes32String("DAI"),
   // ethers.utils.formatBytes32String("JPY"),
   // ethers.utils.formatBytes32String("XAU"),
@@ -58,8 +60,8 @@ const ASSET_IDS = [
 ];
 
 async function main(chainId: number) {
-  const deployer = await signers.deployer(chainId);
   const config = loadConfig(chainId);
+  const deployer = await signers.deployer(chainId);
   const ownerWrapper = new OwnerWrapper(chainId, deployer);
 
   const ecoPyth = EcoPyth__factory.connect(config.oracles.ecoPyth2, deployer);

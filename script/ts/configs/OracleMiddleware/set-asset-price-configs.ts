@@ -27,6 +27,12 @@ async function main(chainId: number) {
       trustPriceAge: 60 * 5, // 5 minutes
       adapter: config.oracles.pythAdapter,
     },
+    {
+      assetId: ethers.utils.formatBytes32String("SOL"),
+      confidenceThreshold: 0,
+      trustPriceAge: 60 * 5, // 5 minutes
+      adapter: config.oracles.pythAdapter,
+    },
   ];
 
   const deployer = await signers.deployer(chainId);

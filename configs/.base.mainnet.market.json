@@ -15,6 +15,14 @@
       "slug": "btc-usd",
       "assetSymbol": "Crypto.BTC",
       "sortIndex": 1
+    },
+    {
+      "index": 2,
+      "name": "SOLUSD",
+      "assetId": "0x534f4c0000000000000000000000000000000000000000000000000000000000",
+      "slug": "sol-usd",
+      "assetSymbol": "Crypto.SOL",
+      "sortIndex": 2
     }
   ],
   "assets": {
