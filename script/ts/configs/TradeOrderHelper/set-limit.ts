@@ -5,11 +5,13 @@ import { OwnerWrapper } from "../../wrappers/OwnerWrapper";
 import { TradeOrderHelper__factory } from "../../../../typechain";
 import { ethers } from "ethers";
 import { findChainByName } from "../../entities/chains";
+import { passChainArg } from "../../utils/main-fn-wrappers";
 
 async function main(chainId: number) {
   const inputs = [
-    { marketIndex: 0, positionSizeLimit: 100_000, tradeSizeLimit: 100_000 },
-    { marketIndex: 1, positionSizeLimit: 100_000, tradeSizeLimit: 100_000 },
+    { marketIndex: 0, positionSizeLimit: 250_000, tradeSizeLimit: 250_000 },
+    { marketIndex: 1, positionSizeLimit: 250_000, tradeSizeLimit: 250_000 },
+    { marketIndex: 2, positionSizeLimit: 250_000, tradeSizeLimit: 250_000 },
   ];
 
   const config = loadConfig(chainId);
@@ -41,19 +43,4 @@ async function main(chainId: number) {
   );
 }
 
-const program = new Command();
-
-// program.requiredOption("--chain-id <number>", "chain id", parseInt);
-program.requiredOption("--chain <chain>", "chain alias");
-
-const opts = program.parse(process.argv).opts();
-
-const chain = findChainByName(opts.chain);
-main(chain.id!)
-  .then(() => {
-    process.exit(0);
-  })
-  .catch((e) => {
-    console.error(e);
-    process.exit(1);
-  });
+passChainArg(main);
