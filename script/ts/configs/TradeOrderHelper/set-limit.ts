@@ -8,8 +8,8 @@ import { findChainByName } from "../../entities/chains";
 
 async function main(chainId: number) {
   const inputs = [
-    { marketIndex: 0, positionSizeLimit: 750_000, tradeSizeLimit: 750_000 },
-    { marketIndex: 1, positionSizeLimit: 750_000, tradeSizeLimit: 750_000 },
+    { marketIndex: 0, positionSizeLimit: 100_000, tradeSizeLimit: 100_000 },
+    { marketIndex: 1, positionSizeLimit: 100_000, tradeSizeLimit: 100_000 },
   ];
 
   const config = loadConfig(chainId);

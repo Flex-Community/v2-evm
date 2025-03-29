@@ -7,9 +7,12 @@ import { ecoPythPriceFeedIdsByIndex } from "../../constants/eco-pyth-index";
 import chains from "../../entities/chains";
 import * as readlineSync from "readline-sync";
 import { ethers } from "ethers";
+import { passChainArg } from "../../utils/main-fn-wrappers";
 
 async function main(chainId: number) {
   const config = loadConfig(chainId);
+
+  const amountIn = 400;
   const PARAMS = [
     // {
     //   amountIn: "1281586.724641214767559313",
@@ -17,15 +20,15 @@ async function main(chainId: number) {
     //   path: [config.tokens.sglp, config.tokens.usdc],
     // },
     {
-      amountIn: "1281586.724641214767559313",
-      minAmountOut: "718",
-      path: [config.tokens.sglp, config.tokens.weth],
+      amountIn: String(amountIn),
+      // minAmountOut: String(amountIn / 96532.7 * 0.99),
+      minAmountOut: 0.00411253 * 0.995,
+      path: [config.tokens.usdc, config.tokens.wbtc],
     },
   ];
 
   const chainInfo = chains[chainId];
-  const deployer = signers.deployer(chainId);
-  const handler = RebalanceHLPHandler__factory.connect(config.handlers.rebalanceHLP, deployer);
+  const deployer = await signers.deployer(chainId);
 
   const [readableTable, minPublishedTime, priceUpdateData, publishTimeDiffUpdateData, hashedVaas] =
     await getUpdatePriceData(ecoPythPriceFeedIdsByIndex, chainInfo.jsonRpcProvider);
@@ -42,9 +45,12 @@ async function main(chainId: number) {
       return;
   }
 
+  const handler = RebalanceHLPHandler__factory.connect(config.handlers.rebalanceHLP, deployer);
   for (const p of PARAMS) {
     const path0Token = ERC20__factory.connect(p.path[0], deployer);
     const pathLastToken = ERC20__factory.connect(p.path[p.path.length - 1], deployer);
+
+    console.log(`path0Token: ${path0Token.address}, pathLastToken: ${pathLastToken.address}`);
 
     const [path0Symbol, path0Decimals, pathLastSymbol, pathLastDecimals] = await Promise.all([
       path0Token.symbol(),
@@ -53,13 +59,17 @@ async function main(chainId: number) {
       pathLastToken.decimals(),
     ]);
 
-    console.log(`[commands/RebalanceHLPHandler] Swapping from ${path0Symbol} to ${pathLastSymbol}...`);
+    console.log(`Amount in: ${p.amountIn} * 10e${path0Decimals} ${path0Symbol}`, ethers.utils.parseUnits(p.amountIn, path0Decimals).toString());
+    console.log(`Amount Out: ${p.minAmountOut} * 10e${pathLastDecimals} ${pathLastSymbol}`, ethers.utils.parseUnits(Number(p.minAmountOut).toFixed(pathLastDecimals), pathLastDecimals).toString());
+
+    let params = {
+      amountIn: ethers.utils.parseUnits(p.amountIn, path0Decimals),
+      minAmountOut: ethers.utils.parseUnits(Number(p.minAmountOut).toFixed(pathLastDecimals), pathLastDecimals),
+      path: p.path,
+    };
+    console.log(`[commands/RebalanceHLPHandler] Swapping from ${path0Symbol} to ${pathLastSymbol}...\n`, JSON.stringify(params, null, 2));
     const tx = await handler.swap(
-      {
-        amountIn: ethers.utils.parseUnits(p.amountIn, path0Decimals),
-        minAmountOut: ethers.utils.parseUnits(p.minAmountOut, pathLastDecimals),
-        path: p.path,
-      },
+      params,
       priceUpdateData,
       publishTimeDiffUpdateData,
       minPublishedTime,
@@ -68,18 +78,4 @@ async function main(chainId: number) {
     console.log(`[commands/RebalanceHLPHandler] Tx: ${tx.hash}`);
   }
 }
-
-const program = new Command();
-
-program.requiredOption("--chain-id <chainId>", "chain id", parseInt);
-
-const opts = program.parse(process.argv).opts();
-
-main(opts.chainId)
-  .then(() => {
-    process.exit(0);
-  })
-  .catch((e) => {
-    console.error(e);
-    process.exit(1);
-  });
+ passChainArg(main);

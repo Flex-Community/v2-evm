@@ -48,6 +48,9 @@ const CHAIN_BY_ID  = {
 export default CHAIN_BY_ID;
 
 export function findChainByName(name: string): ChainEntity {
+  if (name === 'tenderly') {
+    name = 'base'
+  }
   const chain = Object.values(CHAIN_BY_ID).find((chain) => chain.name === name);
   if (!chain) throw new Error(`Chain not found for chain: ${name}`);
   return chain;
