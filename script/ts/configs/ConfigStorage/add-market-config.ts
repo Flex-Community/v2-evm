@@ -1,81 +1,34 @@
 import { ethers } from "ethers";
 import { ConfigStorage__factory } from "../../../../typechain";
 import { loadConfig } from "../../utils/config";
-import { Command } from "commander";
 import signers from "../../entities/signers";
-import assetClasses from "../../entities/asset-classes";
 import { OwnerWrapper } from "../../wrappers/OwnerWrapper";
 import { passChainArg } from "../../utils/main-fn-wrappers";
-
-type AddMarketConfig = {
-  assetId: string;
-  increasePositionFeeRateBPS: number;
-  decreasePositionFeeRateBPS: number;
-  initialMarginFractionBPS: number;
-  maintenanceMarginFractionBPS: number;
-  maxProfitRateBPS: number;
-  assetClass: number;
-  allowIncreasePosition: boolean;
-  active: boolean;
-  fundingRate: {
-    maxSkewScaleUSD: ethers.BigNumber;
-    maxFundingRate: ethers.BigNumber;
-  };
-  maxLongPositionSize: ethers.BigNumber;
-  maxShortPositionSize: ethers.BigNumber;
-  isAdaptiveFeeEnabled: boolean;
-};
+import {
+  ConfigStorageNewMarketConfig,
+  getMarketConfigForAdd
+} from "./configs/market-config";
 
 async function main(chainId: number) {
   const config = loadConfig(chainId);
   const deployer = await signers.deployer(chainId);
-
-  const marketConfigs: Array<AddMarketConfig> = [
-    {
-      assetId: ethers.utils.formatBytes32String("ETH"),
-      maxLongPositionSize: ethers.utils.parseUnits(String(1_000_000), 30),
-      maxShortPositionSize: ethers.utils.parseUnits(String(1_000_000), 30),
-      increasePositionFeeRateBPS: 2, // 0.02%
-      decreasePositionFeeRateBPS: 2, // 0.02%
-      initialMarginFractionBPS: 100, // IMF = 1%, Max leverage = 100
-      maintenanceMarginFractionBPS: 50, // MMF = 0.5%
-      maxProfitRateBPS: 350000, // 3500%
-      assetClass: assetClasses.crypto,
-      allowIncreasePosition: true,
-      active: true,
-      fundingRate: {
-        maxSkewScaleUSD: ethers.utils.parseUnits(String(2000_000_000), 30), // 2000 M
-        maxFundingRate: ethers.utils.parseUnits("8", 18), // 900% per day
-      },
-      isAdaptiveFeeEnabled: false,
-    },
-    {
-      assetId: ethers.utils.formatBytes32String("BTC"),
-      maxLongPositionSize: ethers.utils.parseUnits(String(750_000), 30),
-      maxShortPositionSize: ethers.utils.parseUnits(String(750_000), 30),
-      increasePositionFeeRateBPS: 2, // 0.04%
-      decreasePositionFeeRateBPS: 2, // 0.04%
-      initialMarginFractionBPS: 100, // IMF = 1%, Max leverage = 100
-      maintenanceMarginFractionBPS: 50, // MMF = 0.5%
-      maxProfitRateBPS: 350000, // 3500%
-      assetClass: assetClasses.crypto,
-      allowIncreasePosition: true,
-      active: true,
-      fundingRate: {
-        maxSkewScaleUSD: ethers.utils.parseUnits(String(3000_000_000), 30), // 3000 M
-        maxFundingRate: ethers.utils.parseUnits("8", 18), // 900% per day
-      },
-      isAdaptiveFeeEnabled: false,
-    },
-  ];
+  const marketConfigs: Array<ConfigStorageNewMarketConfig> = await getMarketConfigForAdd(chainId);
 
   const ownerWrapper = new OwnerWrapper(chainId, deployer);
   const configStorage = ConfigStorage__factory.connect(config.storages.config, deployer);
 
-  console.log("[configs/ConfigStorage] Adding new market config...");
+  const configStorageMarketConfigsLength = await configStorage.getMarketConfigsLength();
+
+  console.group('[configs/ConfigStorage]');
+  console.log(`Adding ${marketConfigs.length} market configs...`);
   for (let i = 0; i < marketConfigs.length; i++) {
+    if (configStorageMarketConfigsLength.toNumber() > i) {
+      console.log(`🟢 Skipping ${ethers.utils.parseBytes32String(marketConfigs[i].assetId)} market config - already exists`);
+      continue;
+    }
+
     console.log(
-      `[configs/ConfigStorage] Adding ${ethers.utils.parseBytes32String(marketConfigs[i].assetId)} market config...`
+      `🟠 Adding ${ethers.utils.parseBytes32String(marketConfigs[i].assetId)} market config[${i}]...`
     );
     await ownerWrapper.authExec(
       configStorage.address,
@@ -85,7 +38,10 @@ async function main(chainId: number) {
       ])
     );
   }
-  console.log("[configs/ConfigStorage] Finished");
+  console.log('Finished');
+  console.groupEnd();
+  
+
 }
 
 passChainArg(main);
