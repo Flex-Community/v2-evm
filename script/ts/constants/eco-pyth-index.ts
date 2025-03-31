@@ -19,7 +19,7 @@ export const ecoPythPriceFeedIdsByIndex = [
   // "0x385f64d993f7b77d8182ed5003d97c60aa3361f3cecfe711544d2d59165e9bdf", // OPUSD
   // "0x6e3f3fa8253588df9326580180233eb791e03b443a3ba7a1d892e73874e19a54", // LTCUSD
   // "0x2f95862b045670cd22bee3114c39763a4a08beeb663b145d283c31d7d1101c4f", // BNBUSD
-  // "0xef0d8b6fda2ceba41da15d4095d1da392a0d2f8ed0c6c7bc0f4cfac8c280b56d", // SOLUSD
+  "0xef0d8b6fda2ceba41da15d4095d1da392a0d2f8ed0c6c7bc0f4cfac8c280b56d", // SOLUSD
   // "0xec5d399846a9209f3fe5881d70aae9268c94339ff9817e8d18ff19fa05eea1c8", // XRPUSD
   // "0x8ac0c70fff57e9aefdf5edf44b51d62c2d433653cbb2cf5cc06bb115af04d221", // LINKUSD
   // "0x0b1e3297e69f162877b577b0d6a47a0d63b2392bc8499e6540da4187a63e28f8", // USDCHF
@@ -106,6 +106,7 @@ export const ecoPythHoomanReadableByIndex = [
   "ETH",
   "BTC",
   "USDC",
+  "SOL",
   // "DAI",
   // "JPY",
   // "XAU",
