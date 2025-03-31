@@ -1,8 +1,7 @@
 import { ethers } from "hardhat";
 import { OracleMiddleware__factory } from "../../../../typechain";
-import { getConfig } from "../../utils/config";
-
-const config = getConfig();
+import { getConfig, loadConfig } from "../../utils/config";
+import { passChainArg } from "../../utils/main-fn-wrappers";
 
 const inputs = [
   {
@@ -13,9 +12,14 @@ const inputs = [
     assetId: ethers.utils.formatBytes32String("BTC"),
     status: 2,  // 2 - active
   },
+  {
+    assetId: ethers.utils.formatBytes32String("SOL"),
+    status: 2,  // 2 - active
+  },
 ];
 
-async function main() {
+async function main(chainId: number) {
+  const config = await loadConfig(chainId);
   const deployer = (await ethers.getSigners())[0];
   const oracle = OracleMiddleware__factory.connect(config.oracles.middleware, deployer);
 
@@ -31,7 +35,5 @@ async function main() {
   ).wait();
   console.log("> OracleMiddleware setMultipleMarketStatus success!");
 }
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+
+passChainArg(main);

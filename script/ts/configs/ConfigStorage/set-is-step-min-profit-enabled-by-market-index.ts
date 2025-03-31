@@ -12,6 +12,7 @@ async function main(chainId: number) {
   const inputs = [
     { marketIndex: 0, isEnabled: true },
     { marketIndex: 1, isEnabled: true },
+    { marketIndex: 2, isEnabled: true },
     // { marketIndex: 12, isEnabled: true },
     // { marketIndex: 13, isEnabled: true },
     // { marketIndex: 14, isEnabled: true },
