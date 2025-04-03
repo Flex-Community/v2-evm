@@ -46,10 +46,10 @@ export const config:ConfigStorageMarketConfig[] = [
     assetId: ethers.utils.formatBytes32String("SOL"),
     maxLongPositionSize: ethers.utils.parseUnits(String(250_000), 30),
     maxShortPositionSize: ethers.utils.parseUnits(String(250_000), 30),
-    increasePositionFeeRateBPS: 4, // 0.02%
+    increasePositionFeeRateBPS: 2, // 0.02%
     decreasePositionFeeRateBPS: 2, // 0.02%
-    initialMarginFractionBPS: 200, // IMF = 1%, Max leverage = 100
-    maintenanceMarginFractionBPS: 100, // MMF = 0.5%
+    initialMarginFractionBPS: 400, // IMF = 2%, Max leverage = 100
+    maintenanceMarginFractionBPS: 100, // MMF = 1%
     maxProfitRateBPS: 250000, // 2500%
     assetClass: assetClasses.crypto,
     allowIncreasePosition: true,
