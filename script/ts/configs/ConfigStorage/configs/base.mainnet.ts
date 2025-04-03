@@ -44,9 +44,9 @@ export const config:ConfigStorageMarketConfig[] = [
   {
     marketIndex: 2,
     assetId: ethers.utils.formatBytes32String("SOL"),
-    maxLongPositionSize: ethers.utils.parseUnits(String(1_000_000), 30),
-    maxShortPositionSize: ethers.utils.parseUnits(String(1_000_000), 30),
-    increasePositionFeeRateBPS: 2, // 0.02%
+    maxLongPositionSize: ethers.utils.parseUnits(String(250_000), 30),
+    maxShortPositionSize: ethers.utils.parseUnits(String(250_000), 30),
+    increasePositionFeeRateBPS: 4, // 0.02%
     decreasePositionFeeRateBPS: 2, // 0.02%
     initialMarginFractionBPS: 200, // IMF = 1%, Max leverage = 100
     maintenanceMarginFractionBPS: 100, // MMF = 0.5%
@@ -55,8 +55,8 @@ export const config:ConfigStorageMarketConfig[] = [
     allowIncreasePosition: true,
     active: true,
     fundingRate: {
-      maxSkewScaleUSD: ethers.utils.parseUnits(String(3_000_000_000), 30), // 3000 M
-      maxFundingRate: ethers.utils.parseUnits("8", 18), // 900% per day
+      maxSkewScaleUSD: ethers.utils.parseUnits(String(200_000_000), 30), // 3000 M
+      maxFundingRate: ethers.utils.parseUnits("8", 18), // 800% per day
     },
     isAdaptiveFeeEnabled: false,
   },
