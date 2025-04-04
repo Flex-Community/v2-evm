@@ -1,4 +1,4 @@
-import { ethers } from "ethers";
+import { BigNumber, ethers } from "ethers";
 import { ConfigStorage__factory, TradeHelper__factory } from "../../../../typechain";
 import { loadConfig } from "../../utils/config";
 import { Command } from "commander";
@@ -86,6 +86,9 @@ async function main(chainId: number) {
         console.log(
           `${chalk.yellow(diff.key)}: ${chalk.red(diff.existingValue)} -> ${chalk.green(diff.newValue)}`
         );
+        if (String(diff.existingValue).startsWith('0x')) {
+          console.log(`  ${BigNumber.from(diff.existingValue).toString()} -> ${BigNumber.from(diff.newValue).toString()}`);
+        }
       });
 
       const tx = await ownerWrapper.authExec(
