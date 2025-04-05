@@ -6,13 +6,10 @@ import { TradeOrderHelper__factory } from "../../../../typechain";
 import { ethers } from "ethers";
 import { findChainByName } from "../../entities/chains";
 import { passChainArg } from "../../utils/main-fn-wrappers";
+import { SET_LIMITS_CONFIG } from "./set-limit.config";
 
 async function main(chainId: number) {
-  const inputs = [
-    { marketIndex: 0, positionSizeLimit: 250_000, tradeSizeLimit: 250_000 },
-    { marketIndex: 1, positionSizeLimit: 250_000, tradeSizeLimit: 250_000 },
-    { marketIndex: 2, positionSizeLimit: 100_000, tradeSizeLimit: 100_000 },
-  ];
+  const inputs = SET_LIMITS_CONFIG
 
   const config = loadConfig(chainId);
   const marketConfig = loadMarketConfig(chainId);
