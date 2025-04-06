@@ -16,14 +16,14 @@
 			]
 		}
 	},
-	"initializeCommand": "bash .devcontainer/create-empty-files.sh",
+	"initializeCommand": "bash .devcontainer/create-empty-files.sh ../.${localWorkspaceFolderBasename}",
 	"runArgs": [
 		"--env-file",
-		"../v2-evm.env"
+		"../.${localWorkspaceFolderBasename}/.env"
 	],
 	"mounts": [
 		"type=volume,target=/workspaces/${localWorkspaceFolderBasename}/node_modules",
-		"type=bind,source=${localWorkspaceFolder}/../v2-evm.bash_history,target=/commandhistory/.bash_history",
+		"type=bind,source=${localWorkspaceFolder}/../.${localWorkspaceFolderBasename}/.bash_history,target=/commandhistory/.bash_history"
 	],
 	"workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/${localWorkspaceFolderBasename},type=bind",
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}"
