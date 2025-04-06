@@ -24,4 +24,11 @@ fi
 if [ ! -f "$TARGET_DIR/.bash_history" ]; then
     touch "$TARGET_DIR/.bash_history"
     echo "Created empty .bash_history file in $TARGET_DIR"
-fi 
+fi
+
+# Create empty .bash_history if it doesn't exist
+if [ ! -f "$TARGET_DIR/post-start.sh" ]; then
+    touch "$TARGET_DIR/post-start.sh"
+    chmod +x "$TARGET_DIR/post-start.sh"
+    echo "Created empty post-start.sh file in $TARGET_DIR"
+fi
