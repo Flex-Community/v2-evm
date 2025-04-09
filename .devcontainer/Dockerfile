@@ -40,6 +40,11 @@ RUN /home/vscode/.foundry/bin/foundryup -C 5a8bd89
 
 RUN npm install --global yarn
 
+# Install Tenderly CLI
+RUN curl https://raw.githubusercontent.com/Tenderly/tenderly-cli/master/scripts/install-linux.sh | sudo sh
+# COPY .devcontainer/install-tenderly.sh /home/vscode/install-tenderly.sh
+# RUN sudo /home/vscode/install-tenderly.sh 1.5.14
+
 WORKDIR /workspaces/${WORKSPACE_FOLDER_BASENAME}
 RUN mkdir -p /workspaces/${WORKSPACE_FOLDER_BASENAME}/node_modules
 RUN chown -R vscode:vscode /workspaces/${WORKSPACE_FOLDER_BASENAME}/node_modules
@@ -48,4 +53,4 @@ RUN yarn
 
 # copy config file if it exists
 RUN mkdir -p /home/vscode/.tenderly
-COPY ../.tenderly/*.yaml  /home/vscode/.tenderly/
+COPY --chown=vscode ../.tenderly/*.yaml  /home/vscode/.tenderly/
