@@ -6,6 +6,24 @@ type CollateralEntity = {
   decimals: number;
 };
 
+export const baseMainnetCollaterals = {
+  "USDC": {
+    assetId: "0x5553444300000000000000000000000000000000000000000000000000000000",
+    address: "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+    decimals: 6,
+  },
+  "WBTC": {
+    assetId: "0x4254430000000000000000000000000000000000000000000000000000000000",
+    address: "0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf",
+    decimals: 8,
+  },
+  "WETH": {
+    assetId: "0x4554480000000000000000000000000000000000000000000000000000000000",
+    address: "0x4200000000000000000000000000000000000006",
+    decimals: 18,
+  },
+} as { [collateralSymbol: string]: CollateralEntity };
+
 export default {
   "USDC.e": {
     assetId: ethers.utils.formatBytes32String("USDC"),
