@@ -6,6 +6,25 @@ export const ecoPythPriceFeedIdsByIndex = [
   "0xe62df6c8b4a85fe1a67db44dc12de5db330f7ac66b72dc658afedf0f4a415b43", // BTCUSD
   "0xeaa020c61cc479712813461ce153894a96a6c00b21ed0cfc2798d1f9a9e9c94a", // USDCUSD
   "0xef0d8b6fda2ceba41da15d4095d1da392a0d2f8ed0c6c7bc0f4cfac8c280b56d", // SOLUSD
+  "0xec5d399846a9209f3fe5881d70aae9268c94339ff9817e8d18ff19fa05eea1c8", // XRP
+  "0x2f95862b045670cd22bee3114c39763a4a08beeb663b145d283c31d7d1101c4f", // BNB
+  "0xdcef50dd0a4cd2dcc17e45df1676dcb336a11a61c69df7a0299b0150c672d25c", // DOGE
+  "0x67aed5a24fdad045475e7195c98a98aea119c763f272d4523f5bac93a4f33c2b", // TRX
+  "0x2a01deaec9e51a579277b34b122399984d0bbf57e2458a7e42fecd2829867a0d", // ADA
+  "0x8963217838ab4cf5cadc172203c1f0b763fbaa45f346d8ee50ba994bbcac3026", // TON
+  "0x8ac0c70fff57e9aefdf5edf44b51d62c2d433653cbb2cf5cc06bb115af04d221", // LINK
+  "0x8132e3eb1dac3e56939a16ff83848d194345f6688bff97eb1c8bd462d558802b", // VIRTUAL
+  "0x93da3352f9f1d105fdfe4971cfa80e9dd777bfc5d0f683ebb6e1294b92137bb7", // AVAX
+  "0x3728e591097635310e6341af53db8b7ee42da9b3a8d918f9463ce9cca886dfbd", // HBAR
+  "0x23d7315113f5b1d3ba7a83604c44b94d79f4fd69af77f804fc7f920a6dc65744", // SUI
+  "0xf0d57deca57b3da2fe63a493f4c25925fdfd8edf834b20f93e1f84dbd1504d4a", // SHIB
+  "0x2b9ab1e972a281585084148ba1389800799bd4be63b957507db1349314e47445", // AAVE
+  "0x9a4df90b25497f66b1afb012467e316e801ca3d839456db028892fe8c70c8016", // PENDLE
+  "0x78d185a741d07edb3412b09008b7c5cfb9bbbd7d568bf00ba737b456ba171501", // UNI
+  "0xd69731a2e74ac1ce884fc3890f7ee324b6deb66147055249568869ed700882e4", // PEPE
+  "0x4279e31cc369bbcc2faf022b382b080e32a8e689ff20fbc530d2a603eb6cd98b", // HYPE
+  "0x9db37f4d5654aad3e37e2e14ffd8d53265fb3026d1d8f91146539eebaa2ef45f", // AERO
+  "0x9b5729efe3d68e537cdcb2ca70444dea5f06e1660b562632609757076d0b9448", // BRETT
   // "0xb0948a5e5313200c632b51bb5ca32f6de0d36e9950a942d19751e833f70dabfd", // DAIUSD
   // "0xef2c98c804ba503c6a707e38be4dfbb16683775f195b091252bf24693042fd52", // JPYUSD
   // "0x765d2ba906dbc32ca17cc11f5310a89e9ee1f6420508c63861f2f8ba4ee34bb2", // XAUUSD
@@ -56,102 +75,52 @@ export const ecoPythAssetIdByIndex = [
   ethers.utils.formatBytes32String("BTC"), //0x4254430000000000000000000000000000000000000000000000000000000000
   ethers.utils.formatBytes32String("USDC"), //0x5553444300000000000000000000000000000000000000000000000000000000
   ethers.utils.formatBytes32String("SOL"), //0x534f4c0000000000000000000000000000000000000000000000000000000000
-  // ethers.utils.formatBytes32String("DAI"),
-  // ethers.utils.formatBytes32String("JPY"),
-  // ethers.utils.formatBytes32String("XAU"),
-  // ethers.utils.formatBytes32String("EUR"),
-  // ethers.utils.formatBytes32String("XAG"),
-  // ethers.utils.formatBytes32String("AUD"),
-  // ethers.utils.formatBytes32String("GBP"),
-  // ethers.utils.formatBytes32String("ADA"),
-  // ethers.utils.formatBytes32String("MATIC"),
-  // ethers.utils.formatBytes32String("SUI"),
-  // ethers.utils.formatBytes32String("ARB"),
-  // ethers.utils.formatBytes32String("OP"),
-  // ethers.utils.formatBytes32String("LTC"),
-  // ethers.utils.formatBytes32String("BNB"),
-  // ethers.utils.formatBytes32String("SOL"),
-  // ethers.utils.formatBytes32String("XRP"),
-  // ethers.utils.formatBytes32String("LINK"),
-  // ethers.utils.formatBytes32String("CHF"),
-  // ethers.utils.formatBytes32String("DOGE"),
-  // ethers.utils.formatBytes32String("CAD"),
-  // ethers.utils.formatBytes32String("SGD"),
-  // ethers.utils.formatBytes32String("CNH"),
-  // ethers.utils.formatBytes32String("HKD"),
-  // ethers.utils.formatBytes32String("BCH"),
-  // ethers.utils.formatBytes32String("MEME"),
-  // ethers.utils.formatBytes32String("SEK"),
-  // ethers.utils.formatBytes32String("DIX"),
-  // ethers.utils.formatBytes32String("JTO"),
-  // ethers.utils.formatBytes32String("STX"),
-  // ethers.utils.formatBytes32String("ORDI"),
-  // ethers.utils.formatBytes32String("TIA"),
-  // ethers.utils.formatBytes32String("AVAX"),
-  // ethers.utils.formatBytes32String("INJ"),
-  // ethers.utils.formatBytes32String("DOT"),
-  // ethers.utils.formatBytes32String("SEI"),
-  // ethers.utils.formatBytes32String("ATOM"),
-  // ethers.utils.formatBytes32String("1000PEPE"),
-  // ethers.utils.formatBytes32String("1000SHIB"),
-  // ethers.utils.formatBytes32String("ICP"),
-  // ethers.utils.formatBytes32String("MANTA"),
-  // ethers.utils.formatBytes32String("STRK"),
-  // ethers.utils.formatBytes32String("PYTH"),
-  // ethers.utils.formatBytes32String("PENDLE"),
-  // ethers.utils.formatBytes32String("W"),
-  // ethers.utils.formatBytes32String("ENA"),
+
+  ethers.utils.formatBytes32String("XRP"), // 0x5852500000000000000000000000000000000000000000000000000000000000
+  ethers.utils.formatBytes32String("BNB"), // 0x424e420000000000000000000000000000000000000000000000000000000000
+  ethers.utils.formatBytes32String("DOGE"), // 0x444f474500000000000000000000000000000000000000000000000000000000
+  ethers.utils.formatBytes32String("TRX"), // 0x5452580000000000000000000000000000000000000000000000000000000000
+  ethers.utils.formatBytes32String("ADA"), // 0x4144410000000000000000000000000000000000000000000000000000000000
+  ethers.utils.formatBytes32String("TON"), // 0x544f4e0000000000000000000000000000000000000000000000000000000000
+  ethers.utils.formatBytes32String("LINK"), // 0x4c494e4b00000000000000000000000000000000000000000000000000000000
+  ethers.utils.formatBytes32String("VIRTUAL"), // 0x5649525455414c00000000000000000000000000000000000000000000000000
+  ethers.utils.formatBytes32String("AVAX"), // 0x4156415800000000000000000000000000000000000000000000000000000000
+  ethers.utils.formatBytes32String("HBAR"), // 0x4842415200000000000000000000000000000000000000000000000000000000
+  ethers.utils.formatBytes32String("SUI"), // 0x5355490000000000000000000000000000000000000000000000000000000000
+  ethers.utils.formatBytes32String("SHIB"), // 0x5348494200000000000000000000000000000000000000000000000000000000
+  ethers.utils.formatBytes32String("AAVE"), // 0x4141564500000000000000000000000000000000000000000000000000000000
+  ethers.utils.formatBytes32String("PENDLE"), // 0x50454e444c450000000000000000000000000000000000000000000000000000
+  ethers.utils.formatBytes32String("UNI"), // 0x554e490000000000000000000000000000000000000000000000000000000000
+  ethers.utils.formatBytes32String("PEPE"), // 0x5045504500000000000000000000000000000000000000000000000000000000
+  ethers.utils.formatBytes32String("HYPE"), // 0x4859504500000000000000000000000000000000000000000000000000000000
+  ethers.utils.formatBytes32String("AERO"), // 0x4145524f00000000000000000000000000000000000000000000000000000000
+  ethers.utils.formatBytes32String("BRETT"), // 0x4252455454000000000000000000000000000000000000000000000000000000
+
 ];
 export const ecoPythHoomanReadableByIndex = [
   "ETH",
   "BTC",
   "USDC",
   "SOL",
-  // "DAI",
-  // "JPY",
-  // "XAU",
-  // "EUR",
-  // "XAG",
-  // "AUD",
-  // "GBP",
-  // "ADA",
-  // "MATIC",
-  // "SUI",
-  // "ARB",
-  // "OP",
-  // "LTC",
-  // "BNB",
-  // "SOL",
-  // "XRP",
-  // "LINK",
-  // "CHF",
-  // "DOGE",
-  // "CAD",
-  // "SGD",
-  // "CNH",
-  // "HKD",
-  // "BCH",
-  // "MEME",
-  // "SEK",
-  // "DIX",
-  // "JTO",
-  // "STX",
-  // "ORDI",
-  // "TIA",
-  // "AVAX",
-  // "INJ",
-  // "DOT",
-  // "SEI",
-  // "ATOM",
-  // "1000PEPE",
-  // "1000SHIB",
-  // "ICP",
-  // "MANTA",
-  // "STRK",
-  // "PYTH",
-  // "PENDLE",
-  // "W",
-  // "ENA",
+  "XRP",
+  "BNB",
+  "DOGE",
+  "TRX",
+  "ADA",
+  "TON",
+  "LINK",
+  "VIRTUAL",
+  "AVAX",
+  "HBAR",
+  "SUI",
+  "SHIB",
+  "AAVE",
+  "PENDLE",
+  "UNI",
+  "PEPE",
+  "HYPE",
+  "AERO",
+  "BRETT",
 ];
 export const multiplicationFactorMapByAssetId: Map<string, number> = new Map([
   [ethers.utils.formatBytes32String("1000SHIB"), 1000],
