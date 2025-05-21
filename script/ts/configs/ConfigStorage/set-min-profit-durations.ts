@@ -14,6 +14,26 @@ async function main(chainId: number) {
     { marketIndex: 0, minProfitDuration: 180 },
     { marketIndex: 1, minProfitDuration: 180 },
     { marketIndex: 2, minProfitDuration: 180 },
+
+    { marketIndex: 3, minProfitDuration: 180 },
+    { marketIndex: 4, minProfitDuration: 180 },
+    { marketIndex: 5, minProfitDuration: 180 },
+    { marketIndex: 6, minProfitDuration: 180 },
+    { marketIndex: 7, minProfitDuration: 180 },
+    { marketIndex: 8, minProfitDuration: 180 },
+    { marketIndex: 9, minProfitDuration: 180 },
+    { marketIndex: 10, minProfitDuration: 180 },
+    { marketIndex: 11, minProfitDuration: 180 },
+    { marketIndex: 12, minProfitDuration: 180 },
+    { marketIndex: 13, minProfitDuration: 180 },
+    { marketIndex: 14, minProfitDuration: 180 },
+    { marketIndex: 15, minProfitDuration: 180 },
+    { marketIndex: 16, minProfitDuration: 180 },
+    { marketIndex: 17, minProfitDuration: 180 },
+    { marketIndex: 18, minProfitDuration: 180 },
+    { marketIndex: 19, minProfitDuration: 180 },
+    { marketIndex: 20, minProfitDuration: 180 },
+    { marketIndex: 21, minProfitDuration: 180 },
   ];
 
   const ownerWrapper = new OwnerWrapper(chainId, deployer);

@@ -5,59 +5,41 @@ import { loadConfig } from "../../utils/config";
 import { Command } from "commander";
 import { OwnerWrapper } from "../../wrappers/OwnerWrapper";
 import { passChainArg } from "../../utils/main-fn-wrappers";
+import * as readlineSync from "readline-sync";
+import chalk from "chalk";
 
 const ASSET_IDS = [
-  // Disable all assets except SOL
-  // ethers.utils.formatBytes32String("ETH"),
-  // ethers.utils.formatBytes32String("BTC"),
-  // ethers.utils.formatBytes32String("USDC"),
+  ethers.utils.formatBytes32String("ETH"),
+  ethers.utils.formatBytes32String("BTC"),
+  ethers.utils.formatBytes32String("USDC"),
   ethers.utils.formatBytes32String("SOL"),
-  // ethers.utils.formatBytes32String("DAI"),
-  // ethers.utils.formatBytes32String("JPY"),
-  // ethers.utils.formatBytes32String("XAU"),
-  // ethers.utils.formatBytes32String("EUR"),
-  // ethers.utils.formatBytes32String("XAG"),
-  // ethers.utils.formatBytes32String("AUD"),
-  // ethers.utils.formatBytes32String("GBP"),
-  // ethers.utils.formatBytes32String("ADA"),
-  // ethers.utils.formatBytes32String("MATIC"),
-  // ethers.utils.formatBytes32String("SUI"),
-  // ethers.utils.formatBytes32String("ARB"),
-  // ethers.utils.formatBytes32String("OP"),
-  // ethers.utils.formatBytes32String("LTC"),
-  // ethers.utils.formatBytes32String("BNB"),
-  // ethers.utils.formatBytes32String("SOL"),
-  // ethers.utils.formatBytes32String("XRP"),
-  // ethers.utils.formatBytes32String("LINK"),
-  // ethers.utils.formatBytes32String("CHF"),
-  // ethers.utils.formatBytes32String("DOGE"),
-  // ethers.utils.formatBytes32String("CAD"),
-  // ethers.utils.formatBytes32String("SGD"),
-  // ethers.utils.formatBytes32String("CNH"),
-  // ethers.utils.formatBytes32String("HKD"),
-  // ethers.utils.formatBytes32String("BCH"),
-  // ethers.utils.formatBytes32String("MEME"),
-  // ethers.utils.formatBytes32String("SEK"),
-  // ethers.utils.formatBytes32String("DIX"),
-  // ethers.utils.formatBytes32String("JTO"),
-  // ethers.utils.formatBytes32String("STX"),
-  // ethers.utils.formatBytes32String("ORDI"),
-  // ethers.utils.formatBytes32String("TIA"),
-  // ethers.utils.formatBytes32String("AVAX"),
-  // ethers.utils.formatBytes32String("INJ"),
-  // ethers.utils.formatBytes32String("DOT"),
-  // ethers.utils.formatBytes32String("SEI"),
-  // ethers.utils.formatBytes32String("ATOM"),
-  // ethers.utils.formatBytes32String("1000PEPE"),
-  // ethers.utils.formatBytes32String("1000SHIB"),
-  // ethers.utils.formatBytes32String("ICP"),
-  // ethers.utils.formatBytes32String("MANTA"),
-  // ethers.utils.formatBytes32String("STRK"),
-  // ethers.utils.formatBytes32String("PYTH"),
-  // ethers.utils.formatBytes32String("PENDLE"),
-  // ethers.utils.formatBytes32String("W"),
-  // ethers.utils.formatBytes32String("ENA"),
+  ethers.utils.formatBytes32String("XRP"),
+  ethers.utils.formatBytes32String("BNB"),
+  ethers.utils.formatBytes32String("DOGE"),
+  ethers.utils.formatBytes32String("TRX"),
+  ethers.utils.formatBytes32String("ADA"),
+  ethers.utils.formatBytes32String("TON"),
+  ethers.utils.formatBytes32String("LINK"),
+  ethers.utils.formatBytes32String("VIRTUAL"),
+  ethers.utils.formatBytes32String("AVAX"),
+  ethers.utils.formatBytes32String("HBAR"),
+  ethers.utils.formatBytes32String("SUI"),
+  ethers.utils.formatBytes32String("SHIB"),
+  ethers.utils.formatBytes32String("AAVE"),
+  ethers.utils.formatBytes32String("PENDLE"),
+  ethers.utils.formatBytes32String("UNI"),
+  ethers.utils.formatBytes32String("PEPE"),
+  ethers.utils.formatBytes32String("HYPE"),
+  ethers.utils.formatBytes32String("AERO"),
+  ethers.utils.formatBytes32String("BRETT"),
 ];
+
+interface AssetComparison {
+  assetId: string;
+  status: string;
+  currentIndex: string | number;
+  expectedIndex: number;
+}
 
 async function main(chainId: number) {
   const config = loadConfig(chainId);
@@ -65,8 +47,94 @@ async function main(chainId: number) {
   const ownerWrapper = new OwnerWrapper(chainId, deployer);
 
   const ecoPyth = EcoPyth__factory.connect(config.oracles.ecoPyth2, deployer);
-  console.log("[configs/EcoPyth] Inserting asset IDs...");
-  await ownerWrapper.authExec(ecoPyth.address, ecoPyth.interface.encodeFunctionData("insertAssetIds", [ASSET_IDS]));
+  
+  // Get current asset IDs from contract
+  console.log("[configs/EcoPyth] Loading current asset IDs...");
+  const currentAssetIds = await ecoPyth.getAssetIds();
+  
+  // Create a map of current asset IDs and their indices
+  const currentAssetMap = new Map<string, number>();
+  for (const assetId of currentAssetIds) {
+    const index = await ecoPyth.mapAssetIdToIndex(assetId);
+    currentAssetMap.set(assetId, index.toNumber());
+  }
+
+  // Compare with our ASSET_IDS
+  const comparisonTable: AssetComparison[] = [];
+  const missingAssetIds: string[] = [];
+  const mismatchedAssets: { assetId: string; currentIndex: number; expectedIndex: number }[] = [];
+
+  for (let i = 0; i < ASSET_IDS.length; i++) {
+    const assetId = ASSET_IDS[i];
+    const currentIndex = currentAssetMap.get(assetId);
+    const expectedIndex = i + 1; // +1 because indices in contract start from 1
+
+    const status = currentIndex === undefined ? "Missing" : 
+                  currentIndex === expectedIndex ? "OK" : "Mismatch";
+    
+    if (status === "Mismatch") {
+      mismatchedAssets.push({
+        assetId: ethers.utils.parseBytes32String(assetId),
+        currentIndex: currentIndex!,
+        expectedIndex
+      });
+    } else if (status === "Missing") {
+      missingAssetIds.push(assetId);
+    }
+
+    comparisonTable.push({
+      assetId: ethers.utils.parseBytes32String(assetId),
+      status: status === "OK" ? "🟢 OK" : 
+              status === "Missing" ? "🟡 Missing" : 
+              "🔴 Mismatch",
+      currentIndex: currentIndex || "N/A",
+      expectedIndex: expectedIndex
+    });
+  }
+
+  // Display comparison table
+  console.log("\n[configs/EcoPyth] Asset ID Comparison:");
+  console.table(comparisonTable.map(item => ({
+    "Asset ID": item.assetId,
+    "Status": item.status,
+    "Current Index": item.currentIndex,
+    "Expected Index": item.expectedIndex
+  })));
+
+  // Check for critical index mismatches first
+  if (mismatchedAssets.length > 0) {
+    console.log(chalk.red("\n[configs/EcoPyth] CRITICAL ERROR: Found index mismatches:"));
+    mismatchedAssets.forEach(({ assetId, currentIndex, expectedIndex }) => {
+      console.log(chalk.red(`  - ${assetId}: Current index ${currentIndex}, Expected index ${expectedIndex}`));
+    });
+    console.log(chalk.red("\n[configs/EcoPyth] Please fix index mismatches before proceeding!"));
+    process.exit(1);
+  }
+
+  // Handle missing assets if any
+  if (missingAssetIds.length > 0) {
+    console.log(chalk.yellow(`\n[configs/EcoPyth] Found ${missingAssetIds.length} missing asset IDs`));
+    
+    console.log("\n[configs/EcoPyth] Will add the following asset IDs:");
+    missingAssetIds.forEach((assetId, index) => {
+      console.log(`${ethers.utils.parseBytes32String(assetId)} (${assetId})`);
+    });
+
+    const finalConfirm = readlineSync.question("\n[configs/EcoPyth] Confirm transaction with these values? (y/n): ");
+    if (finalConfirm.toLowerCase() !== 'y') {
+      console.log("[configs/EcoPyth] Operation cancelled.");
+      return;
+    }
+
+    console.log("[configs/EcoPyth] Inserting missing asset IDs...");
+    await ownerWrapper.authExec(
+      ecoPyth.address,
+      ecoPyth.interface.encodeFunctionData("insertAssetIds", [missingAssetIds])
+    );
+    console.log(chalk.green("[configs/EcoPyth] Successfully inserted missing asset IDs!"));
+  } else {
+    console.log(chalk.green("\n[configs/EcoPyth] All asset IDs are correctly configured!"));
+  }
 }
 
 passChainArg(main);
