@@ -17,13 +17,20 @@ function colorize(value: string, newValue: string) {
   return `🔴 ${value}`;
 }
 
-async function getCurrentLimits(contract: any, marketIndex: number) {
-  const positionSizeLimit = await contract.positionSizeLimitOf(marketIndex);
-  const tradeSizeLimit = await contract.tradeSizeLimitOf(marketIndex);
-  return {
-    positionSizeLimit: ethers.utils.formatUnits(positionSizeLimit, 30),
-    tradeSizeLimit: ethers.utils.formatUnits(tradeSizeLimit, 30)
-  };
+async function getCurrentLimits(contract: any, marketIndex: number): Promise<{ positionSizeLimit: string; tradeSizeLimit: string }> {
+  try {
+    const positionSizeLimit = await contract.positionSizeLimitOf(marketIndex);
+    const tradeSizeLimit = await contract.tradeSizeLimitOf(marketIndex);
+    return {
+      positionSizeLimit: ethers.utils.formatUnits(positionSizeLimit, 30),
+      tradeSizeLimit: ethers.utils.formatUnits(tradeSizeLimit, 30)
+    };
+  } catch (error) {
+    return {
+      positionSizeLimit: "error",
+      tradeSizeLimit: "error"
+    };
+  }
 }
 
 async function main(chainId: number) {
@@ -39,14 +46,30 @@ async function main(chainId: number) {
   
   console.group("[configs/setLimits]");
   
+  const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
   // Get current limits and prepare table data
-  const tableData = await Promise.all(inputs.map(async (i) => {
-    const [tradeOrderLimits, limitTradeLimits] = await Promise.all([
-      getCurrentLimits(tradeOrderHelper, i.marketIndex),
-      getCurrentLimits(limitTradeHelper, i.marketIndex)
-    ]);
+  type TableDataItem = {
+    marketIndex: number;
+    market: string;
+    "TradeOrder Pos": string;
+    "LimitTrade Pos": string;
+    "TradeOrder Trade": string;
+    "LimitTrade Trade": string;
+    newPositionSizeLimit: number;
+    newTradeSizeLimit: number;
+  };
+  
+  const tableData: TableDataItem[] = [];
+  for (const i of inputs) {
+    const tradeOrderLimits = await getCurrentLimits(tradeOrderHelper, i.marketIndex);
+    await sleep(250);
+    const limitTradeLimits = await getCurrentLimits(limitTradeHelper, i.marketIndex);
+    await sleep(250);
     
-    return {
+    console.log(`Processed market ${i.marketIndex} (${marketConfig.markets[i.marketIndex].name}) - ${tableData.length + 1}/${inputs.length}`);
+    
+    tableData.push({
       marketIndex: i.marketIndex,
       market: marketConfig.markets[i.marketIndex].name!,
       "TradeOrder Pos": colorize(tradeOrderLimits.positionSizeLimit, i.positionSizeLimit.toString()),
@@ -55,8 +78,8 @@ async function main(chainId: number) {
       "LimitTrade Trade": colorize(limitTradeLimits.tradeSizeLimit, i.tradeSizeLimit.toString()),
       newPositionSizeLimit: i.positionSizeLimit,
       newTradeSizeLimit: i.tradeSizeLimit,
-    };
-  }));
+    });
+  }
 
   console.table(tableData);
 
@@ -64,19 +87,23 @@ async function main(chainId: number) {
   let tradeOrderChangesNeeded = false;
   let limitTradeChangesNeeded = false;
 
-  for (const input of inputs) {
-    const [tradeOrderLimits, limitTradeLimits] = await Promise.all([
-      getCurrentLimits(tradeOrderHelper, input.marketIndex),
-      getCurrentLimits(limitTradeHelper, input.marketIndex)
-    ]);
+  for (const item of tableData) {
+    const tradeOrderLimits = {
+      positionSizeLimit: item["TradeOrder Pos"].replace(/[✅🔴]/g, '').trim(),
+      tradeSizeLimit: item["TradeOrder Trade"].replace(/[✅🔴]/g, '').trim()
+    };
+    const limitTradeLimits = {
+      positionSizeLimit: item["LimitTrade Pos"].replace(/[✅🔴]/g, '').trim(),
+      tradeSizeLimit: item["LimitTrade Trade"].replace(/[✅🔴]/g, '').trim()
+    };
 
-    if (parseFloat(tradeOrderLimits.positionSizeLimit) !== input.positionSizeLimit ||
-        parseFloat(tradeOrderLimits.tradeSizeLimit) !== input.tradeSizeLimit) {
+    if (parseFloat(tradeOrderLimits.positionSizeLimit || "0") !== item.newPositionSizeLimit ||
+        parseFloat(tradeOrderLimits.tradeSizeLimit || "0") !== item.newTradeSizeLimit) {
       tradeOrderChangesNeeded = true;
     }
 
-    if (parseFloat(limitTradeLimits.positionSizeLimit) !== input.positionSizeLimit ||
-        parseFloat(limitTradeLimits.tradeSizeLimit) !== input.tradeSizeLimit) {
+    if (parseFloat(limitTradeLimits.positionSizeLimit || "0") !== item.newPositionSizeLimit ||
+        parseFloat(limitTradeLimits.tradeSizeLimit || "0") !== item.newTradeSizeLimit) {
       limitTradeChangesNeeded = true;
     }
   }
