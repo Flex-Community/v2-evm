@@ -277,8 +277,8 @@ export const config:ConfigStorageMarketConfig[] = [
     maxShortPositionSize: ethers.utils.parseUnits(String(150_000), 30),
     increasePositionFeeRateBPS: 5, // 0.05%
     decreasePositionFeeRateBPS: 5, // 0.05%
-    initialMarginFractionBPS: 1000, // IMF = 10%, Max leverage = 10
-    maintenanceMarginFractionBPS: 500, // MMF = 1%
+    initialMarginFractionBPS: 2000, // IMF = 20%, Max leverage = 5
+    maintenanceMarginFractionBPS: 1000, // MMF = 1%
     maxProfitRateBPS: 250000, // 2500%
     assetClass: assetClasses.crypto,
     allowIncreasePosition: true,
