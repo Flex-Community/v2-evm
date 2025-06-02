@@ -50,7 +50,7 @@ export const config:ConfigStorageMarketConfig[] = [
     decreasePositionFeeRateBPS: 3, // 0.02%
     initialMarginFractionBPS: 400, // IMF = 2%, Max leverage = 100
     maintenanceMarginFractionBPS: 200, // MMF = 1%
-    maxProfitRateBPS: 250000, // 2500%
+    maxProfitRateBPS: 125000, // 1250%
     assetClass: assetClasses.crypto,
     allowIncreasePosition: true,
     active: true,
@@ -70,7 +70,7 @@ export const config:ConfigStorageMarketConfig[] = [
     decreasePositionFeeRateBPS: 5, // 0.05%
     initialMarginFractionBPS: 400, // IMF = 2%, Max leverage = 100
     maintenanceMarginFractionBPS: 200, // MMF = 1%
-    maxProfitRateBPS: 250000, // 2500%
+    maxProfitRateBPS: 125000, // 1250%
     assetClass: assetClasses.crypto,
     allowIncreasePosition: true,
     active: true,
@@ -89,7 +89,7 @@ export const config:ConfigStorageMarketConfig[] = [
     decreasePositionFeeRateBPS: 5, // 0.05%
     initialMarginFractionBPS: 400, // IMF = 2%, Max leverage = 100
     maintenanceMarginFractionBPS: 200, // MMF = 1%
-    maxProfitRateBPS: 250000, // 2500%
+    maxProfitRateBPS: 125000, // 1250%
     assetClass: assetClasses.crypto,
     allowIncreasePosition: true,
     active: true,
@@ -108,7 +108,7 @@ export const config:ConfigStorageMarketConfig[] = [
     decreasePositionFeeRateBPS: 5, // 0.05%
     initialMarginFractionBPS: 1000, // IMF = 5%, Max leverage = 10
     maintenanceMarginFractionBPS: 500, // MMF = 1%
-    maxProfitRateBPS: 250000, // 2500%
+    maxProfitRateBPS: 50000, // 500%
     assetClass: assetClasses.crypto,
     allowIncreasePosition: true,
     active: true,
@@ -127,7 +127,7 @@ export const config:ConfigStorageMarketConfig[] = [
     decreasePositionFeeRateBPS: 5, // 0.05%
     initialMarginFractionBPS: 400, // IMF = 2%, Max leverage = 100
     maintenanceMarginFractionBPS: 200, // MMF = 1%
-    maxProfitRateBPS: 250000, // 2500%
+    maxProfitRateBPS: 125000, // 1250%
     assetClass: assetClasses.crypto,
     allowIncreasePosition: true,
     active: true,
@@ -146,7 +146,7 @@ export const config:ConfigStorageMarketConfig[] = [
     decreasePositionFeeRateBPS: 5, // 0.05%
     initialMarginFractionBPS: 400, // IMF = 4%, Max leverage = 100
     maintenanceMarginFractionBPS: 200, // MMF = 1%
-    maxProfitRateBPS: 250000, // 2500%
+    maxProfitRateBPS: 125000, // 1250%
     assetClass: assetClasses.crypto,
     allowIncreasePosition: true,
     active: true,
@@ -165,7 +165,7 @@ export const config:ConfigStorageMarketConfig[] = [
     decreasePositionFeeRateBPS: 5, // 0.05%
     initialMarginFractionBPS: 1000, // IMF = 10%, Max leverage = 10
     maintenanceMarginFractionBPS: 500, // MMF = 1%
-    maxProfitRateBPS: 250000, // 2500%
+    maxProfitRateBPS: 50000, // 500%
     assetClass: assetClasses.crypto,
     allowIncreasePosition: true,
     active: true,
@@ -184,7 +184,7 @@ export const config:ConfigStorageMarketConfig[] = [
     decreasePositionFeeRateBPS: 5, // 0.05%
     initialMarginFractionBPS: 1000, // IMF = 10%, Max leverage = 10
     maintenanceMarginFractionBPS: 500, // MMF = 1%
-    maxProfitRateBPS: 250000, // 2500%
+    maxProfitRateBPS: 50000, // 500%
     assetClass: assetClasses.crypto,
     allowIncreasePosition: true,
     active: true,
@@ -203,7 +203,7 @@ export const config:ConfigStorageMarketConfig[] = [
     decreasePositionFeeRateBPS: 5, // 0.05%
     initialMarginFractionBPS: 2000, // IMF = 20%, Max leverage = 5
     maintenanceMarginFractionBPS: 1000, // MMF = 1%
-    maxProfitRateBPS: 250000, // 2500%
+    maxProfitRateBPS: 25000, // 250%
     assetClass: assetClasses.crypto,
     allowIncreasePosition: true,
     active: true,
@@ -222,7 +222,7 @@ export const config:ConfigStorageMarketConfig[] = [
     decreasePositionFeeRateBPS: 5, // 0.05%
     initialMarginFractionBPS: 400, // IMF = 4%, Max leverage = 25
     maintenanceMarginFractionBPS: 200, // MMF = 1%
-    maxProfitRateBPS: 250000, // 2500%
+    maxProfitRateBPS: 125000, // 1250%
     assetClass: assetClasses.crypto,
     allowIncreasePosition: true,
     active: true,
@@ -241,7 +241,7 @@ export const config:ConfigStorageMarketConfig[] = [
     decreasePositionFeeRateBPS: 5, // 0.05%
     initialMarginFractionBPS: 1000, // IMF = 10%, Max leverage = 10
     maintenanceMarginFractionBPS: 500, // MMF = 1%
-    maxProfitRateBPS: 250000, // 2500%
+    maxProfitRateBPS: 50000, // 500%
     assetClass: assetClasses.crypto,
     allowIncreasePosition: true,
     active: true,
@@ -260,7 +260,7 @@ export const config:ConfigStorageMarketConfig[] = [
     decreasePositionFeeRateBPS: 5, // 0.05%
     initialMarginFractionBPS: 1000, // IMF = 10%, Max leverage = 10
     maintenanceMarginFractionBPS: 500, // MMF = 1%
-    maxProfitRateBPS: 250000, // 2500%
+    maxProfitRateBPS: 50000, // 500%
     assetClass: assetClasses.crypto,
     allowIncreasePosition: true,
     active: true,
@@ -279,7 +279,7 @@ export const config:ConfigStorageMarketConfig[] = [
     decreasePositionFeeRateBPS: 5, // 0.05%
     initialMarginFractionBPS: 2000, // IMF = 20%, Max leverage = 5
     maintenanceMarginFractionBPS: 1000, // MMF = 1%
-    maxProfitRateBPS: 250000, // 2500%
+    maxProfitRateBPS: 25000, // 250%
     assetClass: assetClasses.crypto,
     allowIncreasePosition: true,
     active: true,
@@ -298,7 +298,7 @@ export const config:ConfigStorageMarketConfig[] = [
     decreasePositionFeeRateBPS: 5, // 0.05%
     initialMarginFractionBPS: 1000, // IMF = 10%, Max leverage = 10
     maintenanceMarginFractionBPS: 500, // MMF = 1%
-    maxProfitRateBPS: 250000, // 2500%
+    maxProfitRateBPS: 50000, // 500%
     assetClass: assetClasses.crypto,
     allowIncreasePosition: true,
     active: true,
@@ -317,7 +317,7 @@ export const config:ConfigStorageMarketConfig[] = [
     decreasePositionFeeRateBPS: 5, // 0.05%
     initialMarginFractionBPS: 2000, // IMF = 20%, Max leverage = 5
     maintenanceMarginFractionBPS: 1000, // MMF = 1%
-    maxProfitRateBPS: 250000, // 2500%
+    maxProfitRateBPS: 25000, // 250%
     assetClass: assetClasses.crypto,
     allowIncreasePosition: true,
     active: true,
@@ -336,7 +336,7 @@ export const config:ConfigStorageMarketConfig[] = [
     decreasePositionFeeRateBPS: 5, // 0.05%
     initialMarginFractionBPS: 2000, // IMF = 20%, Max leverage = 5
     maintenanceMarginFractionBPS: 1000, // MMF = 1%
-    maxProfitRateBPS: 250000, // 2500%
+    maxProfitRateBPS: 25000, // 250%
     assetClass: assetClasses.crypto,
     allowIncreasePosition: true,
     active: true,
@@ -355,7 +355,7 @@ export const config:ConfigStorageMarketConfig[] = [
     decreasePositionFeeRateBPS: 5, // 0.05%
     initialMarginFractionBPS: 2000, // IMF = 20%, Max leverage = 5
     maintenanceMarginFractionBPS: 1000, // MMF = 1%
-    maxProfitRateBPS: 250000, // 2500%
+    maxProfitRateBPS: 25000, // 250%
     assetClass: assetClasses.crypto,
     allowIncreasePosition: true,
     active: true,
@@ -374,7 +374,7 @@ export const config:ConfigStorageMarketConfig[] = [
     decreasePositionFeeRateBPS: 5, // 0.05%
     initialMarginFractionBPS: 2000, // IMF = 20%, Max leverage = 5
     maintenanceMarginFractionBPS: 1000, // MMF = 1%
-    maxProfitRateBPS: 250000, // 2500%
+    maxProfitRateBPS: 25000, // 250%
     assetClass: assetClasses.crypto,
     allowIncreasePosition: true,
     active: true,
@@ -393,7 +393,7 @@ export const config:ConfigStorageMarketConfig[] = [
     decreasePositionFeeRateBPS: 5, // 0.05%
     initialMarginFractionBPS: 2000, // IMF = 20%, Max leverage = 5
     maintenanceMarginFractionBPS: 1000, // MMF = 1%
-    maxProfitRateBPS: 250000, // 2500%
+    maxProfitRateBPS: 25000, // 250%
     assetClass: assetClasses.crypto,
     allowIncreasePosition: true,
     active: true,
@@ -412,7 +412,7 @@ export const config:ConfigStorageMarketConfig[] = [
     decreasePositionFeeRateBPS: 5, // 0.05%
     initialMarginFractionBPS: 2000, // IMF = 20%, Max leverage = 5
     maintenanceMarginFractionBPS: 1000, // MMF = 1%
-    maxProfitRateBPS: 250000, // 2500%
+    maxProfitRateBPS: 25000, // 250%
     assetClass: assetClasses.crypto,
     allowIncreasePosition: true,
     active: true,
