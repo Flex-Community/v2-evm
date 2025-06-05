@@ -370,8 +370,8 @@ export const config:ConfigStorageMarketConfig[] = [
     assetId: ethers.utils.formatBytes32String("HYPE"),
     maxLongPositionSize: ethers.utils.parseUnits(String(150_000), 30),
     maxShortPositionSize: ethers.utils.parseUnits(String(150_000), 30),
-    increasePositionFeeRateBPS: 5, // 0.05%
-    decreasePositionFeeRateBPS: 5, // 0.05%
+    increasePositionFeeRateBPS: 8, // 0.08%
+    decreasePositionFeeRateBPS: 8, // 0.08%
     initialMarginFractionBPS: 2000, // IMF = 20%, Max leverage = 5
     maintenanceMarginFractionBPS: 1000, // MMF = 1%
     maxProfitRateBPS: 25000, // 250%
@@ -382,15 +382,15 @@ export const config:ConfigStorageMarketConfig[] = [
       maxSkewScaleUSD: ethers.utils.parseUnits(String(200_000_000), 30), // 3000 M
       maxFundingRate: ethers.utils.parseUnits("8", 18), // 800% per day
     },
-    isAdaptiveFeeEnabled: true,
+    isAdaptiveFeeEnabled: false,
   },
   {
     marketIndex: 20,
     assetId: ethers.utils.formatBytes32String("AERO"),
     maxLongPositionSize: ethers.utils.parseUnits(String(150_000), 30),
     maxShortPositionSize: ethers.utils.parseUnits(String(150_000), 30),
-    increasePositionFeeRateBPS: 5, // 0.05%
-    decreasePositionFeeRateBPS: 5, // 0.05%
+    increasePositionFeeRateBPS: 8, // 0.08%
+    decreasePositionFeeRateBPS: 8, // 0.08%
     initialMarginFractionBPS: 2000, // IMF = 20%, Max leverage = 5
     maintenanceMarginFractionBPS: 1000, // MMF = 1%
     maxProfitRateBPS: 25000, // 250%
@@ -401,15 +401,15 @@ export const config:ConfigStorageMarketConfig[] = [
       maxSkewScaleUSD: ethers.utils.parseUnits(String(200_000_000), 30), // 3000 M
       maxFundingRate: ethers.utils.parseUnits("8", 18), // 800% per day
     },
-    isAdaptiveFeeEnabled: true,
+    isAdaptiveFeeEnabled: false,
   },
   {
     marketIndex: 21,
     assetId: ethers.utils.formatBytes32String("BRETT"),
     maxLongPositionSize: ethers.utils.parseUnits(String(150_000), 30),
     maxShortPositionSize: ethers.utils.parseUnits(String(150_000), 30),
-    increasePositionFeeRateBPS: 5, // 0.05%
-    decreasePositionFeeRateBPS: 5, // 0.05%
+    increasePositionFeeRateBPS: 8, // 0.08%
+    decreasePositionFeeRateBPS: 8, // 0.08%
     initialMarginFractionBPS: 2000, // IMF = 20%, Max leverage = 5
     maintenanceMarginFractionBPS: 1000, // MMF = 1%
     maxProfitRateBPS: 25000, // 250%
@@ -420,7 +420,7 @@ export const config:ConfigStorageMarketConfig[] = [
       maxSkewScaleUSD: ethers.utils.parseUnits(String(200_000_000), 30), // 3000 M
       maxFundingRate: ethers.utils.parseUnits("8", 18), // 800% per day
     },
-    isAdaptiveFeeEnabled: true,
+    isAdaptiveFeeEnabled: false,
   },
 
 
