@@ -368,8 +368,8 @@ export const config:ConfigStorageMarketConfig[] = [
   {
     marketIndex: 19,
     assetId: ethers.utils.formatBytes32String("HYPE"),
-    maxLongPositionSize: ethers.utils.parseUnits(String(150_000), 30),
-    maxShortPositionSize: ethers.utils.parseUnits(String(150_000), 30),
+    maxLongPositionSize: ethers.utils.parseUnits(String(200_000), 30),
+    maxShortPositionSize: ethers.utils.parseUnits(String(200_000), 30),
     increasePositionFeeRateBPS: 8, // 0.08%
     decreasePositionFeeRateBPS: 8, // 0.08%
     initialMarginFractionBPS: 2000, // IMF = 20%, Max leverage = 5
