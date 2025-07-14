@@ -116,4 +116,34 @@ export const SET_CONFIGS = [
     pythPriceId: ethers.utils.formatBytes32String("BRETT"),
     inverse: false,
   },
+  {
+    assetId: ethers.utils.formatBytes32String("XAU"),
+    pythPriceId: ethers.utils.formatBytes32String("XAU"),
+    inverse: false,
+  },
+  {
+    assetId: ethers.utils.formatBytes32String("USOIL"),
+    pythPriceId: ethers.utils.formatBytes32String("USOIL"),
+    inverse: false,
+  },
+  {
+    assetId: ethers.utils.formatBytes32String("AAPL"),
+    pythPriceId: ethers.utils.formatBytes32String("AAPL"),
+    inverse: false,
+  },
+  {
+    assetId: ethers.utils.formatBytes32String("MSTR"),
+    pythPriceId: ethers.utils.formatBytes32String("MSTR"),
+    inverse: false,
+  },
+  {
+    assetId: ethers.utils.formatBytes32String("TSLA"),
+    pythPriceId: ethers.utils.formatBytes32String("TSLA"),
+    inverse: false,
+  },
+  {
+    assetId: ethers.utils.formatBytes32String("NVDA"),
+    pythPriceId: ethers.utils.formatBytes32String("NVDA"),
+    inverse: false,
+  },
 ];

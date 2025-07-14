@@ -142,6 +142,44 @@ export function getConfig_SetAssetPriceConfigs(chainId:number) {
       trustPriceAge: 60 * 5, // 5 minutes
       adapter: config.oracles.pythAdapter,
     },
+    {
+      assetId: ethers.utils.formatBytes32String("XAU"),
+      confidenceThreshold: 0,
+      trustPriceAge: 60 * 5, // 5 minutes
+      adapter: config.oracles.pythAdapter,
+    },
+    {
+      assetId: ethers.utils.formatBytes32String("USOIL"),
+      confidenceThreshold: 0,
+      trustPriceAge: 60 * 5, // 5 minutes
+      adapter: config.oracles.pythAdapter,
+    },
+    {
+      assetId: ethers.utils.formatBytes32String("AAPL"),
+      confidenceThreshold: 0,
+      trustPriceAge: 60 * 5, // 5 minutes
+      adapter: config.oracles.pythAdapter,
+    },
+    {
+      assetId: ethers.utils.formatBytes32String("MSTR"),
+      confidenceThreshold: 0,
+      trustPriceAge: 60 * 5, // 5 minutes
+      adapter: config.oracles.pythAdapter,
+    },
+    {
+      assetId: ethers.utils.formatBytes32String("TSLA"),
+      confidenceThreshold: 0,
+      trustPriceAge: 60 * 5, // 5 minutes
+      adapter: config.oracles.pythAdapter,
+    },
+    {
+      assetId: ethers.utils.formatBytes32String("NVDA"),
+      confidenceThreshold: 0,
+      trustPriceAge: 60 * 5, // 5 minutes
+      adapter: config.oracles.pythAdapter,
+    },
+
+    
   ];
 
 }

@@ -34,6 +34,12 @@ async function main(chainId: number) {
     { marketIndex: 19, minProfitDuration: 180 },
     { marketIndex: 20, minProfitDuration: 180 },
     { marketIndex: 21, minProfitDuration: 180 },
+    { marketIndex: 22, minProfitDuration: 180 }, // XAU
+    { marketIndex: 23, minProfitDuration: 180 }, // USOIL
+    { marketIndex: 24, minProfitDuration: 180 }, // AAPL
+    { marketIndex: 25, minProfitDuration: 180 }, // MSTR
+    { marketIndex: 26, minProfitDuration: 180 }, // TSLA
+    { marketIndex: 27, minProfitDuration: 180 }, // NVDA
   ];
 
   const ownerWrapper = new OwnerWrapper(chainId, deployer);
