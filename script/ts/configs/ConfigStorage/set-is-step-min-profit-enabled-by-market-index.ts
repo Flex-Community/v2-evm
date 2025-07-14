@@ -33,7 +33,13 @@ async function main(chainId: number) {
     { marketIndex: 19, isEnabled: true },
     { marketIndex: 20, isEnabled: true },
     { marketIndex: 21, isEnabled: true },
-
+    
+    { marketIndex: 22, isEnabled: true }, // XAU
+    { marketIndex: 23, isEnabled: true }, // USOIL
+    { marketIndex: 24, isEnabled: true }, // AAPL
+    { marketIndex: 25, isEnabled: true }, // MSTR 
+    { marketIndex: 26, isEnabled: true }, // TSLA
+    { marketIndex: 27, isEnabled: true }, // NVDA
 
   ];
 
