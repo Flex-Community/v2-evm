@@ -143,26 +143,26 @@ async function main(chainId: number) {
   // Find tokens that need to be reduced (negative difference) with >1% threshold
   const surplus = Object.entries(tokenInfos).filter(([, info]) => {
     const percentageDiff = Math.abs(info.currentPercentage - (info.targetPercentage * 100));
-    return info.difference.lt(0) && percentageDiff > 1.0;
+    return info.difference.lt(0) && percentageDiff > 5.0;
   });
   
   // Find tokens that need to be increased (positive difference) with >1% threshold
   const deficit = Object.entries(tokenInfos).filter(([, info]) => {
     const percentageDiff = Math.abs(info.currentPercentage - (info.targetPercentage * 100));
-    return info.difference.gt(0) && percentageDiff > 1.0;
+    return info.difference.gt(0) && percentageDiff > 5.0;
   });
 
   console.log("🔄 Required Rebalancing Actions:");
   console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 
-  // Show tokens that are within 1% threshold (no rebalancing needed)
+  // Show tokens that are within 5% threshold (no rebalancing needed)
   const withinThreshold = Object.entries(tokenInfos).filter(([, info]) => {
     const percentageDiff = Math.abs(info.currentPercentage - (info.targetPercentage * 100));
-    return percentageDiff <= 1.0;
+    return percentageDiff <= 5.0;
   });
 
   if (withinThreshold.length > 0) {
-    console.log("✅ Tokens within 1% threshold (no rebalancing needed):");
+    console.log("✅ Tokens within 5% threshold (no rebalancing needed):");
     withinThreshold.forEach(([symbol, info]) => {
       const percentageDiff = Math.abs(info.currentPercentage - (info.targetPercentage * 100));
       console.log(`   ${symbol}: ${info.currentPercentage.toFixed(2)}% → ${(info.targetPercentage * 100).toFixed(2)}% (diff: ${percentageDiff.toFixed(2)}%)`);
@@ -171,7 +171,7 @@ async function main(chainId: number) {
   }
 
   if (surplus.length === 0 && deficit.length === 0) {
-    console.log("✅ Portfolio is already balanced within 1% threshold!");
+    console.log("✅ Portfolio is already balanced within 5% threshold!");
     return;
   }
 
