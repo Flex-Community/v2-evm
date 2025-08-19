@@ -11,9 +11,9 @@ async function main(chainId: number) {
   const deployer = await signers.deployer(chainId);
 
   const inputs = [
-    { marketIndex: 0, minProfitDuration: 180 },
-    { marketIndex: 1, minProfitDuration: 180 },
-    { marketIndex: 2, minProfitDuration: 180 },
+    { marketIndex: 0, minProfitDuration: 60 },
+    { marketIndex: 1, minProfitDuration: 60 },
+    { marketIndex: 2, minProfitDuration: 60 },
 
     { marketIndex: 3, minProfitDuration: 180 },
     { marketIndex: 4, minProfitDuration: 180 },
