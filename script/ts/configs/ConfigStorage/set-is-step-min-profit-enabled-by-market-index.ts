@@ -10,9 +10,9 @@ async function main(chainId: number) {
   const config = loadConfig(chainId);
 
   const inputs = [
-    { marketIndex: 0, isEnabled: true },
-    { marketIndex: 1, isEnabled: true },
-    { marketIndex: 2, isEnabled: true },
+    { marketIndex: 0, isEnabled: false },
+    { marketIndex: 1, isEnabled: false },
+    { marketIndex: 2, isEnabled: false },
 
     { marketIndex: 3, isEnabled: true },
     { marketIndex: 4, isEnabled: true },
