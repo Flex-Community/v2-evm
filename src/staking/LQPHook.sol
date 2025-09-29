@@ -229,7 +229,7 @@ contract LQPHook is ITradeServiceHook, OwnableUpgradeable {
   function _mintLQP(address _primaryAccount, uint256 _sizeDelta, uint256 _multiplier) internal {
     // 1e16 chosen as (1e30 / 1e18) * BPS to normalize units and basis points.
     uint256 _mintAmount = _sizeDelta.mulDiv(_multiplier, 1e16);
-    IMintableToken(lqp).mint(address(this), _mintAmount);
+    IMintableToken(lqp).mint(_primaryAccount, _mintAmount);
   }
 
   /// @custom:oz-upgrades-unsafe-allow constructor
