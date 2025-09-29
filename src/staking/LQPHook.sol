@@ -6,7 +6,7 @@ pragma solidity 0.8.18;
 
 import { OwnableUpgradeable } from "@openzeppelin-upgradeable/contracts/access/OwnableUpgradeable.sol";
 import { ITradeServiceHook } from "../services/interfaces/ITradeServiceHook.sol";
-import { MintableTokenInterface } from "./interfaces/MintableTokenInterface.sol";
+import { IMintableToken } from "./interfaces/IMintableToken.sol";
 import { IBoostLockerRegistry } from "./interfaces/IBoostLockerRegistry.sol";
 import { FullMath } from "@hmx/libraries/FullMath.sol";
 
@@ -43,7 +43,7 @@ contract LQPHook is ITradeServiceHook, OwnableUpgradeable {
   uint32 internal constant BPS = 100_00;
   uint256 public constant epochLength = 1 weeks;
 
-  /// @notice LQP token address (must implement MintableTokenInterface).
+  /// @notice LQP token address (must implement IMintableToken).
   address public lqp;
 
   /// @notice Registry providing lock-up multiplier info.
@@ -95,7 +95,7 @@ contract LQPHook is ITradeServiceHook, OwnableUpgradeable {
 
   /// @notice Initialize the hook with registry and LQP token address and default tiers.
   /// @param _boostLockerRegistry Address of the boost locker registry.
-  /// @param _lqp Address of the LQP token (must implement MintableTokenInterface).
+  /// @param _lqp Address of the LQP token (must implement IMintableToken).
   function initialize(address _boostLockerRegistry, address _lqp) external initializer {
     OwnableUpgradeable.__Ownable_init();
 
@@ -103,13 +103,13 @@ contract LQPHook is ITradeServiceHook, OwnableUpgradeable {
     lqp = _lqp;
 
     // Sanity check: ensure LQP token implements expected interface (reverts if not).
-    MintableTokenInterface(lqp).totalSupply();
+    IMintableToken(lqp).totalSupply();
 
     // Default tiers (E30 decimals amounts and multipliers in bps)
-    tiers.push(Tier(10000e30, 20000e30, 2000));
-    tiers.push(Tier(20000e30, 50000e30, 5000));
-    tiers.push(Tier(50000e30, 100000e30, 10000));
-    tiers.push(Tier(100000e30, type(uint256).max, 20000));
+    tiers.push(Tier(10_000e30, 20_000e30, 2_000));
+    tiers.push(Tier(20_000e30, 50_000e30, 5_000));
+    tiers.push(Tier(50_000e30, 100_000e30, 10_000));
+    tiers.push(Tier(100_000e30, type(uint256).max, 20_000));
   }
 
   /// -----------------------------------------------------------------------
@@ -229,7 +229,7 @@ contract LQPHook is ITradeServiceHook, OwnableUpgradeable {
   function _mintLQP(address _primaryAccount, uint256 _sizeDelta, uint256 _multiplier) internal {
     // 1e16 chosen as (1e30 / 1e18) * BPS to normalize units and basis points.
     uint256 _mintAmount = _sizeDelta.mulDiv(_multiplier, 1e16);
-    MintableTokenInterface(lqp).mint(address(this), _mintAmount);
+    IMintableToken(lqp).mint(address(this), _mintAmount);
   }
 
   /// @custom:oz-upgrades-unsafe-allow constructor
