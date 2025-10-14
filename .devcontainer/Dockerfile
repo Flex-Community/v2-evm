@@ -21,7 +21,7 @@ RUN SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=/commandhisto
 USER vscode
 SHELL ["/bin/bash", "--login", "-i", "-c"]
 
-ENV NODE_VERSION 18
+ENV NODE_VERSION 20
 
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash \
     && source $HOME/.nvm/nvm.sh \
