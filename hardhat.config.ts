@@ -12,6 +12,7 @@ import "@typechain/hardhat";
 import "@nomiclabs/hardhat-ethers";
 import "hardhat-deploy";
 import "@nomicfoundation/hardhat-verify";
+import "@flex-community/hardhat-tenderly-signer";
 
 // import { task } from "hardhat";
 import { getImplementationAddress } from "@openzeppelin/upgrades-core";
@@ -52,7 +53,8 @@ const config: HardhatUserConfig = {
   networks: {
     tenderly: {
       url: process.env.TENDERLY_RPC || "",
-      accounts: process.env.MAINNET_PRIVATE_KEY !== undefined ? [process.env.MAINNET_PRIVATE_KEY] : [],
+      tenderlySignerAddress: "0x0000C5b439c9B902A21eF1F5365cbdF7e696A000",
+      //accounts: process.env.MAINNET_PRIVATE_KEY !== undefined ? [process.env.MAINNET_PRIVATE_KEY] : [],
     },
     arbitrum: {
       url: process.env.ARBITRUM_MAINNET_RPC || "",
