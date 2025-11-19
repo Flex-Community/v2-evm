@@ -5,24 +5,9 @@ import signers from "../../entities/signers";
 import { Command } from "commander";
 import { OwnerWrapper } from "../../wrappers/OwnerWrapper";
 import { passChainArg } from "../../utils/main-fn-wrappers";
+import { SET_CONFIGS } from "./set-configs.cfg";
 
-const inputs = [
-  {
-    assetId: ethers.utils.formatBytes32String("ETH"),
-    pythPriceId: ethers.utils.formatBytes32String("ETH"),
-    inverse: false,
-  },
-  {
-    assetId: ethers.utils.formatBytes32String("BTC"),
-    pythPriceId: ethers.utils.formatBytes32String("BTC"),
-    inverse: false,
-  },
-  {
-    assetId: ethers.utils.formatBytes32String("USDC"),
-    pythPriceId: ethers.utils.formatBytes32String("USDC"),
-    inverse: false,
-  },
-];
+const inputs = SET_CONFIGS
 
 async function main(chainId: number) {
   const config = loadConfig(chainId);

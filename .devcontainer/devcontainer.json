@@ -7,7 +7,6 @@
 			"WORKSPACE_FOLDER_BASENAME": "${localWorkspaceFolderBasename}"
 		}
 	},
-
 	"customizations": {
 		"vscode": {
 			"settings": {},
@@ -17,10 +16,16 @@
 			]
 		}
 	},
-
+	"initializeCommand": "bash .devcontainer/create-empty-files.sh ../.${localWorkspaceFolderBasename}",
+	"postStartCommand": "/post-start.sh",
+	"runArgs": [
+		"--env-file",
+		"../.${localWorkspaceFolderBasename}/.env"
+	],
 	"mounts": [
 		"type=volume,target=/workspaces/${localWorkspaceFolderBasename}/node_modules",
-		"type=bind,source=${localWorkspaceFolder}/.devcontainer/bashhistory,target=/commandhistory",
+		"type=bind,source=${localWorkspaceFolder}/../.${localWorkspaceFolderBasename}/.bash_history,target=/commandhistory/.bash_history",
+		"type=bind,source=${localWorkspaceFolder}/../.${localWorkspaceFolderBasename}/post-start.sh,target=/post-start.sh",
 	],
 	"workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/${localWorkspaceFolderBasename},type=bind",
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}"

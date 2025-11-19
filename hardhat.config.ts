@@ -12,6 +12,7 @@ import "@typechain/hardhat";
 import "@nomiclabs/hardhat-ethers";
 import "hardhat-deploy";
 import "@nomicfoundation/hardhat-verify";
+import "@flex-community/hardhat-tenderly-signer";
 
 // import { task } from "hardhat";
 import { getImplementationAddress } from "@openzeppelin/upgrades-core";
@@ -52,7 +53,8 @@ const config: HardhatUserConfig = {
   networks: {
     tenderly: {
       url: process.env.TENDERLY_RPC || "",
-      accounts: process.env.MAINNET_PRIVATE_KEY !== undefined ? [process.env.MAINNET_PRIVATE_KEY] : [],
+      tenderlySignerAddress: "0x0000C5b439c9B902A21eF1F5365cbdF7e696A000",
+      //accounts: process.env.MAINNET_PRIVATE_KEY !== undefined ? [process.env.MAINNET_PRIVATE_KEY] : [],
     },
     arbitrum: {
       url: process.env.ARBITRUM_MAINNET_RPC || "",
@@ -98,18 +100,13 @@ const config: HardhatUserConfig = {
     privateVerification: true,
   },
   etherscan: {
-    apiKey: {
-      arbitrumOne: process.env.ETHERSCAN_API_KEY!,
-      arbitrumGoerli: process.env.ETHERSCAN_API_KEY!,
-      base: process.env.BASESCAN_API_KEY!,
-      baseSepolia: process.env.BASESCAN_API_KEY!,
-    },
+    apiKey: process.env.ETHERSCAN_API_KEY!,
     customChains: [
       {
         network: "base",
         chainId: 8453,
         urls: {
-          apiURL: "https://api.basescan.org/api",
+          apiURL: "https://api.etherscan.io/v2/api?chainid=8453",
           browserURL: "https://www.basescan.org",
         },
       },
@@ -117,7 +114,7 @@ const config: HardhatUserConfig = {
         network: "baseSepolia",
         chainId: 84532,
         urls: {
-          apiURL: "https://api-sepolia.basescan.org/api",
+          apiURL: "https://api.etherscan.io/v2/api?chainid=84532",
           browserURL: "https://sepolia.basescan.org/",
         },
       },

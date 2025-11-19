@@ -1,46 +1,35 @@
 import { Calculator__factory } from "../../../../typechain";
 import { loadConfig } from "../../utils/config";
-import { Command } from "commander";
 import signers from "../../entities/signers";
-import SafeWrapper from "../../wrappers/SafeWrapper";
-import { compareAddress } from "../../utils/address";
+import { OwnerWrapper } from "../../wrappers/OwnerWrapper";
+import { passChainArg } from "../../utils/main-fn-wrappers";
+import chalk from "chalk";
 
 async function main(chainId: number) {
   const config = loadConfig(chainId);
-  const deployer = signers.deployer(chainId);
-  const safeWrapper = new SafeWrapper(chainId, config.safe, deployer);
+  const deployer = await signers.deployer(chainId);
+  const ownerWrapper = new OwnerWrapper(chainId, deployer);
 
   const calculator = Calculator__factory.connect(config.calculator, deployer);
-  const owner = await calculator.owner();
+  
   console.log(`[configs/Calculator] setTradeHelper`);
-  if (compareAddress(owner, config.safe)) {
-    const tx = await safeWrapper.proposeTransaction(
-      calculator.address,
-      0,
-      calculator.interface.encodeFunctionData("setTradeHelper", [config.helpers.trade])
-    );
-    console.log(`[configs/Calculator] Proposed tx: ${tx}`);
-  } else {
-    const tx = await calculator.setTradeHelper(config.helpers.trade);
-    console.log(`[configs/Calculator] Tx: ${tx}`);
-    await tx.wait();
+  
+  const currentTradeHelper = await calculator.tradeHelper();
+  const newTradeHelper = config.helpers.trade;
+  
+  console.log(chalk.yellow("Current trade helper:"), chalk.yellow(currentTradeHelper));
+  console.log(chalk.green("New trade helper:"), chalk.green(newTradeHelper));
+  
+  if (currentTradeHelper.toLowerCase() === newTradeHelper.toLowerCase()) {
+    console.log(chalk.green("✅ Trade helper value is already set to the desired value"));
+    return;
   }
+  
+  await ownerWrapper.authExec(
+    calculator.address,
+    calculator.interface.encodeFunctionData("setTradeHelper", [newTradeHelper])
+  );
   console.log("[configs/Calculator] Finished");
 }
 
-const prog = new Command();
-
-prog.requiredOption("--chain-id <number>", "chain id", parseInt);
-
-prog.parse(process.argv);
-
-const opts = prog.opts();
-
-main(opts.chainId)
-  .then(() => {
-    process.exit(0);
-  })
-  .catch((error) => {
-    console.error(error);
-    process.exitCode = 1;
-  });
+passChainArg(main)

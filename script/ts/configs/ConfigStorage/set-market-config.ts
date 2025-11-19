@@ -1,87 +1,39 @@
-import { ethers } from "ethers";
+import { BigNumber, ethers } from "ethers";
 import { ConfigStorage__factory, TradeHelper__factory } from "../../../../typechain";
 import { loadConfig } from "../../utils/config";
 import { Command } from "commander";
 import chalk from 'chalk';
 import signers from "../../entities/signers";
-import assetClasses from "../../entities/asset-classes";
-import SafeWrapper from "../../wrappers/SafeWrapper";
 import { passChainArg } from "../../utils/main-fn-wrappers";
 import { OwnerWrapper } from "../../wrappers/OwnerWrapper";
+import {
+  ConfigStorageMarketConfig,
+  getMarketConfigForSet
+} from "./configs/market-config";
+import { fetchFeeData } from "wagmi/actions";
 
-type AddMarketConfig = {
-  marketIndex: number;
-  assetId: string;
-  increasePositionFeeRateBPS: number;
-  decreasePositionFeeRateBPS: number;
-  initialMarginFractionBPS: number;
-  maintenanceMarginFractionBPS: number;
-  maxProfitRateBPS: number;
-  assetClass: number;
-  allowIncreasePosition: boolean;
-  active: boolean;
-  fundingRate: {
-    maxSkewScaleUSD: ethers.BigNumber;
-    maxFundingRate: ethers.BigNumber;
-  };
-  maxLongPositionSize: ethers.BigNumber;
-  maxShortPositionSize: ethers.BigNumber;
-  isAdaptiveFeeEnabled: boolean;
-};
+
 
 async function main(chainId: number) {
   const config = loadConfig(chainId);
   const deployer = await signers.deployer(chainId);
 
-  const marketConfigs: Array<AddMarketConfig> = [
-    {
-      marketIndex: 0,
-      assetId: ethers.utils.formatBytes32String("ETH"),
-      maxLongPositionSize: ethers.utils.parseUnits(String(1_000_000), 30),
-      maxShortPositionSize: ethers.utils.parseUnits(String(1_000_000), 30),
-      increasePositionFeeRateBPS: 2, // 0.02%
-      decreasePositionFeeRateBPS: 2, // 0.02%
-      initialMarginFractionBPS: 200, // IMF = 1%, Max leverage = 100
-      maintenanceMarginFractionBPS: 100, // MMF = 0.5%
-      maxProfitRateBPS: 250000, // 2500%
-      assetClass: assetClasses.crypto,
-      allowIncreasePosition: true,
-      active: true,
-      fundingRate: {
-        maxSkewScaleUSD: ethers.utils.parseUnits(String(2_000_000_000), 30), // 2000 M
-        maxFundingRate: ethers.utils.parseUnits("8", 18), // 900% per day
-      },
-      isAdaptiveFeeEnabled: false,
-    },
-    {
-      marketIndex: 1,
-      assetId: ethers.utils.formatBytes32String("BTC"),
-      maxLongPositionSize: ethers.utils.parseUnits(String(1_000_000), 30),
-      maxShortPositionSize: ethers.utils.parseUnits(String(1_000_000), 30),
-      increasePositionFeeRateBPS: 2, // 0.02%
-      decreasePositionFeeRateBPS: 2, // 0.02%
-      initialMarginFractionBPS: 200, // IMF = 1%, Max leverage = 100
-      maintenanceMarginFractionBPS: 100, // MMF = 0.5%
-      maxProfitRateBPS: 250000, // 2500%
-      assetClass: assetClasses.crypto,
-      allowIncreasePosition: true,
-      active: true,
-      fundingRate: {
-        maxSkewScaleUSD: ethers.utils.parseUnits(String(3_000_000_000), 30), // 3000 M
-        maxFundingRate: ethers.utils.parseUnits("8", 18), // 900% per day
-      },
-      isAdaptiveFeeEnabled: false,
-    },
-  ];
+  const marketConfigs: Array<ConfigStorageMarketConfig> = await getMarketConfigForSet(chainId);
 
   const configStorage = ConfigStorage__factory.connect(config.storages.config, deployer);
   const ownerWrapper = new OwnerWrapper(chainId, deployer);
+
+  const configStorageMarketConfigsLength = await configStorage.getMarketConfigsLength();
+  if (configStorageMarketConfigsLength.toNumber() !== marketConfigs.length) {
+    throw new Error(`Market config Error: Market configs length mismatch. Expected ${marketConfigs.length} but contract has ${configStorageMarketConfigsLength}. Use add-market-config.ts to add-market-configs script.`);
+  }
 
   // console.log("[ConfigStorage] Setting market config...");
   for (let i = 0; i < marketConfigs.length; i++) {
     console.group(
       `[ConfigStorage] [${i}] --------- Setting ${ethers.utils.parseBytes32String(marketConfigs[i].assetId)} [${i}] market config...`
     );
+    
     let existingMarketConfig:any = await configStorage.marketConfigs(marketConfigs[i].marketIndex)
     existingMarketConfig = {
       ...existingMarketConfig,
@@ -134,6 +86,9 @@ async function main(chainId: number) {
         console.log(
           `${chalk.yellow(diff.key)}: ${chalk.red(diff.existingValue)} -> ${chalk.green(diff.newValue)}`
         );
+        if (String(diff.existingValue).startsWith('0x')) {
+          console.log(`  ${BigNumber.from(diff.existingValue).toString()} -> ${BigNumber.from(diff.newValue).toString()}`);
+        }
       });
 
       const tx = await ownerWrapper.authExec(

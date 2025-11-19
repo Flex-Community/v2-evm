@@ -1,33 +1,13 @@
-import { ethers } from "ethers";
 import { OracleMiddleware__factory } from "../../../../typechain";
 import { loadConfig } from "../../utils/config";
 import signers from "../../entities/signers";
-import { Command } from "commander";
 import { OwnerWrapper } from "../../wrappers/OwnerWrapper";
 import { passChainArg } from "../../utils/main-fn-wrappers";
+import { getConfig_SetAssetPriceConfigs } from "./set-asset-price-configs.cfg";
 
 async function main(chainId: number) {
   const config = loadConfig(chainId);
-  const assetConfigs = [
-    {
-      assetId: ethers.utils.formatBytes32String("ETH"),
-      confidenceThreshold: 0,
-      trustPriceAge: 60 * 5, // 5 minutes
-      adapter: config.oracles.pythAdapter,
-    },
-    {
-      assetId: ethers.utils.formatBytes32String("BTC"),
-      confidenceThreshold: 0,
-      trustPriceAge: 60 * 5, // 5 minutes
-      adapter: config.oracles.pythAdapter,
-    },
-    {
-      assetId: ethers.utils.formatBytes32String("USDC"),
-      confidenceThreshold: 0,
-      trustPriceAge: 60 * 5, // 5 minutes
-      adapter: config.oracles.pythAdapter,
-    },
-  ];
+  const assetConfigs = getConfig_SetAssetPriceConfigs(chainId);
 
   const deployer = await signers.deployer(chainId);
   const ownerWrapper = new OwnerWrapper(chainId, deployer);

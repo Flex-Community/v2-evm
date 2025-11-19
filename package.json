@@ -90,6 +90,7 @@
     "arbitrum:goerli:execute:get-equity": "dotenv -- bash -c 'forge script ./script/execute/GetEquity.s.sol --rpc-url $ARBITRUM_GOERLI_RPC --broadcast'"
   },
   "devDependencies": {
+    "@flex-community/hardhat-tenderly-signer": "https://github.com/Flex-Community/hardhat-tenderly-signer.git",
     "@indexed-finance/multicall": "^2.0.0",
     "@nomicfoundation/hardhat-chai-matchers": "^1.0.5",
     "@nomicfoundation/hardhat-ethers": "^3.0.6",

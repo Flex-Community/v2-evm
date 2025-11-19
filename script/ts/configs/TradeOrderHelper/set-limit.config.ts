@@ -1,0 +1,33 @@
+export const SET_LIMITS_CONFIG  = [
+  { marketIndex: 0, positionSizeLimit: 300_000, tradeSizeLimit: 300_000 },
+  { marketIndex: 1, positionSizeLimit: 300_000, tradeSizeLimit: 300_000 },
+  { marketIndex: 2, positionSizeLimit: 250_000, tradeSizeLimit: 250_000 },
+
+  { marketIndex: 3, positionSizeLimit: 75_000, tradeSizeLimit: 75_000 },
+  { marketIndex: 4, positionSizeLimit: 75_000, tradeSizeLimit: 75_000 },
+  { marketIndex: 5, positionSizeLimit: 75_000, tradeSizeLimit: 75_000 },
+  { marketIndex: 6, positionSizeLimit: 75_000, tradeSizeLimit: 75_000 },
+  { marketIndex: 7, positionSizeLimit: 75_000, tradeSizeLimit: 75_000 },
+  { marketIndex: 8, positionSizeLimit: 75_000, tradeSizeLimit: 75_000 },
+  { marketIndex: 9, positionSizeLimit: 75_000, tradeSizeLimit: 75_000 },
+  { marketIndex: 10, positionSizeLimit: 75_000, tradeSizeLimit: 75_000 },
+  { marketIndex: 11, positionSizeLimit: 75_000, tradeSizeLimit: 75_000 },
+  { marketIndex: 12, positionSizeLimit: 75_000, tradeSizeLimit: 75_000 },
+  { marketIndex: 13, positionSizeLimit: 75_000, tradeSizeLimit: 75_000 },
+  { marketIndex: 14, positionSizeLimit: 75_000, tradeSizeLimit: 75_000 },
+  { marketIndex: 15, positionSizeLimit: 75_000, tradeSizeLimit: 75_000 },
+  { marketIndex: 16, positionSizeLimit: 75_000, tradeSizeLimit: 75_000 },
+  { marketIndex: 17, positionSizeLimit: 75_000, tradeSizeLimit: 75_000 },
+  { marketIndex: 18, positionSizeLimit: 75_000, tradeSizeLimit: 75_000 },
+  { marketIndex: 19, positionSizeLimit: 100_000, tradeSizeLimit: 100_000 },
+  { marketIndex: 20, positionSizeLimit: 75_000, tradeSizeLimit: 75_000 },
+  { marketIndex: 21, positionSizeLimit: 75_000, tradeSizeLimit: 75_000 },
+  
+  { marketIndex: 22, positionSizeLimit: 100_000, tradeSizeLimit: 100_000 },
+  { marketIndex: 23, positionSizeLimit: 100_000, tradeSizeLimit: 100_000 },
+  { marketIndex: 24, positionSizeLimit: 100_000, tradeSizeLimit: 100_000 },
+  { marketIndex: 25, positionSizeLimit: 100_000, tradeSizeLimit: 100_000 },
+  { marketIndex: 26, positionSizeLimit: 100_000, tradeSizeLimit: 100_000 },
+  { marketIndex: 27, positionSizeLimit: 100_000, tradeSizeLimit: 100_000 },
+
+];
