@@ -24,12 +24,15 @@ const assetIdWithPriceAdapters = ["GLP", "wstETH", "GM-BTCUSD", "GM-ETHUSD", "DI
 
 export async function getUpdatePriceData(
   priceIds: string[],
-  provider: ethers.providers.Provider
+  signer: ethers.Signer,
+  chainId: number | null = null
 ): Promise<[Array<{ asset: string; price: string }>, number, string[], string[], string]> {
   let hashedVaas = "";
 
   const table = [];
-  const chainId = (await provider.getNetwork()).chainId;
+  if (chainId === null) {
+    chainId = (await signer.getChainId());
+  }
   const config = loadConfig(chainId);
 
   const MAX_PRICE_DIFF = 1500_00;
@@ -80,6 +83,7 @@ export async function getUpdatePriceData(
       price: ethers.utils.formatUnits(_priceToPriceE8(priceInfo.price, priceInfo.expo, multiplicationFactor), 8),
     });
   }
+  console.log(`[utils/price] Build Data...`);
   const vaas = await connection.getPriceFeedsUpdateData(
     priceIds.filter((each) => !assetIdWithPriceAdapters.includes(each))
   );
@@ -91,11 +95,14 @@ export async function getUpdatePriceData(
         })
         .join("")
   );
+  console.log(`[utils/price] Connecting to EcoPythCalldataBuilder...`);
   const ecoPythCalldataBuilder = EcoPythCalldataBuilder__factory.connect(
     config.oracles.unsafeEcoPythCalldataBuilder3,
-    provider
+    signer
   );
+  console.log(`[utils/price] Building data...`);
   const [minPublishedTime, priceUpdateData, publishTimeDiffUpdateData] = await ecoPythCalldataBuilder.build(buildData);
+  console.log(`[utils/price] Done...`);
   return [table, minPublishedTime.toNumber(), priceUpdateData, publishTimeDiffUpdateData, hashedVaas];
 }
 

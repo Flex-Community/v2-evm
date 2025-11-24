@@ -15,7 +15,9 @@ async function main(chainId: number) {
   const pyth = EcoPyth__factory.connect(config.oracles.ecoPyth2, deployer);
 
   const [readableTable, minPublishedTime, priceUpdateData, publishTimeDiffUpdateData, hashedVaas] =
-    await getUpdatePriceData(ecoPythPriceFeedIdsByIndex, provider);
+    await getUpdatePriceData(ecoPythPriceFeedIdsByIndex, deployer, chainId);
+  
+  console.log(`[cmds/EcoPyth] Getting update price data done...`);
   console.table(readableTable);
   const confirm = readlineSync.question(`[cmds/EcoPyth] Confirm to update price feeds? (y/n): `);
   switch (confirm) {

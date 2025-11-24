@@ -31,6 +31,7 @@ async function main(chainId: number) {
   const config = loadConfig(chainId);
   const chainInfo = chains[chainId];
   const deployer = await signers.deployer(chainId);
+  console.log(`Deployer address: ${await deployer.getAddress()}`);
 
   // Connect to contracts
   const vaultStorage = VaultStorage__factory.connect(config.storages.vault, deployer);
