@@ -178,6 +178,36 @@ export function getConfig_SetAssetPriceConfigs(chainId:number) {
       trustPriceAge: 60 * 5, // 5 minutes
       adapter: config.oracles.pythAdapter,
     },
+    {
+      assetId: ethers.utils.formatBytes32String("FARTCOIN"),
+      confidenceThreshold: 0,
+      trustPriceAge: 60 * 5, // 5 minutes
+      adapter: config.oracles.pythAdapter,
+    },
+    {
+      assetId: ethers.utils.formatBytes32String("WIF"),
+      confidenceThreshold: 0,
+      trustPriceAge: 60 * 5, // 5 minutes
+      adapter: config.oracles.pythAdapter,
+    },
+    {
+      assetId: ethers.utils.formatBytes32String("BONK"),
+      confidenceThreshold: 0,
+      trustPriceAge: 60 * 5, // 5 minutes
+      adapter: config.oracles.pythAdapter,
+    },
+    {
+      assetId: ethers.utils.formatBytes32String("TAO"),
+      confidenceThreshold: 0,
+      trustPriceAge: 60 * 5, // 5 minutes
+      adapter: config.oracles.pythAdapter,
+    },
+    {
+      assetId: ethers.utils.formatBytes32String("JUP"),
+      confidenceThreshold: 0,
+      trustPriceAge: 60 * 5, // 5 minutes
+      adapter: config.oracles.pythAdapter,
+    },
 
     
   ];

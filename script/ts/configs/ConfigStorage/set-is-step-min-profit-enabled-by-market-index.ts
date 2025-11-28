@@ -41,6 +41,12 @@ async function main(chainId: number) {
     { marketIndex: 26, isEnabled: true }, // TSLA
     { marketIndex: 27, isEnabled: true }, // NVDA
 
+    { marketIndex: 28, isEnabled: true }, // FARTCOIN
+    { marketIndex: 29, isEnabled: true }, // WIF
+    { marketIndex: 30, isEnabled: true }, // BONK
+    { marketIndex: 31, isEnabled: true }, // TAO
+    { marketIndex: 32, isEnabled: true }, // JUP
+
   ];
 
   const deployer = await signers.deployer(chainId);

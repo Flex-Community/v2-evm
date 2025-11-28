@@ -536,7 +536,101 @@ export const config:ConfigStorageMarketConfig[] = [
     },
     isAdaptiveFeeEnabled: false,
   },
-
+  {
+    marketIndex: 28,
+    assetId: ethers.utils.formatBytes32String("FARTCOIN"),
+    maxLongPositionSize: ethers.utils.parseUnits(String(180_000), 30),
+    maxShortPositionSize: ethers.utils.parseUnits(String(180_000), 30),
+    increasePositionFeeRateBPS: 5, // 0.05%
+    decreasePositionFeeRateBPS: 5, // 0.05%
+    initialMarginFractionBPS: 1000, // IMF = 10%, Max leverage = 10
+    maintenanceMarginFractionBPS: 500, // MMF = 0.5%
+    maxProfitRateBPS: 25000, // 250%
+    assetClass: assetClasses.crypto,
+    allowIncreasePosition: true,
+    active: true,
+    fundingRate: {
+      maxSkewScaleUSD: ethers.utils.parseUnits(String(200_000_000), 30), // 200 M
+      maxFundingRate: ethers.utils.parseUnits("8", 18), // 800% per day
+    },
+    isAdaptiveFeeEnabled: false,
+  },
+  {
+    marketIndex: 29,
+    assetId: ethers.utils.formatBytes32String("WIF"),
+    maxLongPositionSize: ethers.utils.parseUnits(String(100_000), 30),
+    maxShortPositionSize: ethers.utils.parseUnits(String(100_000), 30),
+    increasePositionFeeRateBPS: 5, // 0.05%
+    decreasePositionFeeRateBPS: 5, // 0.05%
+    initialMarginFractionBPS: 2000, // IMF = 20%, Max leverage = 5
+    maintenanceMarginFractionBPS: 1000, // MMF = 1%
+    maxProfitRateBPS: 25000, // 250%
+    assetClass: assetClasses.equity,
+    allowIncreasePosition: true,
+    active: true,
+    fundingRate: {
+      maxSkewScaleUSD: ethers.utils.parseUnits(String(200_000_000), 30), // 200 M
+      maxFundingRate: ethers.utils.parseUnits("8", 18), // 800% per day
+    },
+    isAdaptiveFeeEnabled: false,
+  },
+  {
+    marketIndex: 30,
+    assetId: ethers.utils.formatBytes32String("BONK"),
+    maxLongPositionSize: ethers.utils.parseUnits(String(100_000), 30),
+    maxShortPositionSize: ethers.utils.parseUnits(String(100_000), 30),
+    increasePositionFeeRateBPS: 5, // 0.05%
+    decreasePositionFeeRateBPS: 5, // 0.05%
+    initialMarginFractionBPS: 2000, // IMF = 20%, Max leverage = 5
+    maintenanceMarginFractionBPS: 1000, // MMF = 1%
+    maxProfitRateBPS: 25000, // 250%
+    assetClass: assetClasses.equity,
+    allowIncreasePosition: true,
+    active: true,
+    fundingRate: {
+      maxSkewScaleUSD: ethers.utils.parseUnits(String(200_000_000), 30), // 200 M
+      maxFundingRate: ethers.utils.parseUnits("8", 18), // 800% per day
+    },
+    isAdaptiveFeeEnabled: false,
+  },
+  {
+    marketIndex: 31,
+    assetId: ethers.utils.formatBytes32String("TAO"),
+    maxLongPositionSize: ethers.utils.parseUnits(String(250_000), 30),
+    maxShortPositionSize: ethers.utils.parseUnits(String(250_000), 30),
+    increasePositionFeeRateBPS: 5, // 0.05%
+    decreasePositionFeeRateBPS: 5, // 0.05%
+    initialMarginFractionBPS: 500, // IMF = 5%, Max leverage = 20
+    maintenanceMarginFractionBPS: 250, // MMF = 0.25%
+    maxProfitRateBPS: 25000, // 250%
+    assetClass: assetClasses.equity,
+    allowIncreasePosition: true,
+    active: true,
+    fundingRate: {
+      maxSkewScaleUSD: ethers.utils.parseUnits(String(200_000_000), 30), // 200 M
+      maxFundingRate: ethers.utils.parseUnits("8", 18), // 800% per day
+    },
+    isAdaptiveFeeEnabled: false,
+  },
+  {
+    marketIndex: 32,
+    assetId: ethers.utils.formatBytes32String("JUP"),
+    maxLongPositionSize: ethers.utils.parseUnits(String(180_000), 30),
+    maxShortPositionSize: ethers.utils.parseUnits(String(180_000), 30),
+    increasePositionFeeRateBPS: 5, // 0.05%
+    decreasePositionFeeRateBPS: 5, // 0.05%
+    initialMarginFractionBPS: 1000, // IMF = 10%, Max leverage = 10
+    maintenanceMarginFractionBPS: 500, // MMF = 0.5%
+    maxProfitRateBPS: 25000, // 250%
+    assetClass: assetClasses.equity,
+    allowIncreasePosition: true,
+    active: true,
+    fundingRate: {
+      maxSkewScaleUSD: ethers.utils.parseUnits(String(200_000_000), 30), // 200 M
+      maxFundingRate: ethers.utils.parseUnits("8", 18), // 800% per day
+    },
+    isAdaptiveFeeEnabled: false,
+  },
 
 
 ]

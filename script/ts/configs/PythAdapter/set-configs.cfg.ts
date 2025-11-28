@@ -146,4 +146,29 @@ export const SET_CONFIGS = [
     pythPriceId: ethers.utils.formatBytes32String("NVDA"),
     inverse: false,
   },
+  {
+    assetId: ethers.utils.formatBytes32String("FARTCOIN"),
+    pythPriceId: ethers.utils.formatBytes32String("FARTCOIN"),
+    inverse: false,
+  },
+  {
+    assetId: ethers.utils.formatBytes32String("WIF"),
+    pythPriceId: ethers.utils.formatBytes32String("WIF"),
+    inverse: false,
+  },
+  {
+    assetId: ethers.utils.formatBytes32String("BONK"),
+    pythPriceId: ethers.utils.formatBytes32String("BONK"),
+    inverse: false,
+  },
+  {
+    assetId: ethers.utils.formatBytes32String("TAO"),
+    pythPriceId: ethers.utils.formatBytes32String("TAO"),
+    inverse: false,
+  },
+  {
+    assetId: ethers.utils.formatBytes32String("JUP"),
+    pythPriceId: ethers.utils.formatBytes32String("JUP"),
+    inverse: false,
+  },
 ];
