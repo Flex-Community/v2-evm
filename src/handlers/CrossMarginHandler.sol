@@ -427,8 +427,9 @@ contract CrossMarginHandler is OwnableUpgradeable, ReentrancyGuardUpgradeable, I
       // Then we unwrap the wNative token. The receiving amount should be the exact same as _amount. (No fee deducted when withdraw)
       IWNative(_order.token).withdraw(_order.amount);
 
-      // slither-disable-next-line arbitrary-send-eth
-      payable(_order.account).transfer(_order.amount);
+      (bool success, ) = _order.account.call{ value: _order.amount, gas: 23000 }("");
+      if (!success) revert ICrossMarginHandler_EthTransferFailed();
+
     } else {
       // Withdraw _token straight to the user
       _order.crossMarginService.withdrawCollateral(

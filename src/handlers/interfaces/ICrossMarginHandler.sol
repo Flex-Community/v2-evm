@@ -19,6 +19,7 @@ interface ICrossMarginHandler {
   error ICrossMarginHandler_Unauthorized();
   error ICrossMarginHandler_BadAmount();
   error ICrossMarginHandler_SelfTransfer();
+  error ICrossMarginHandler_EthTransferFailed();
 
   /**
    * Structs
