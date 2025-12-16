@@ -221,7 +221,7 @@ async function main(chainId: number) {
 
   // Get price update data
   const [readableTable, minPublishedTime, priceUpdateData, publishTimeDiffUpdateData, hashedVaas] =
-    await getUpdatePriceData(ecoPythPriceFeedIdsByIndex, chainInfo.jsonRpcProvider);
+    await getUpdatePriceData(ecoPythPriceFeedIdsByIndex, deployer, chainId);
   
   // Filter to show only FLP tokens
   const flpTokenIndices = {
