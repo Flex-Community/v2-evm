@@ -539,12 +539,12 @@ export const config:ConfigStorageMarketConfig[] = [
   {
     marketIndex: 28,
     assetId: ethers.utils.formatBytes32String("FARTCOIN"),
-    maxLongPositionSize: ethers.utils.parseUnits(String(250_000), 30),
-    maxShortPositionSize: ethers.utils.parseUnits(String(250_000), 30),
+    maxLongPositionSize: ethers.utils.parseUnits(String(150_000), 30),
+    maxShortPositionSize: ethers.utils.parseUnits(String(150_000), 30),
     increasePositionFeeRateBPS: 7, // 0.05%
     decreasePositionFeeRateBPS: 7, // 0.05%
-    initialMarginFractionBPS: 500, // IMF = 5%, Max leverage = 20
-    maintenanceMarginFractionBPS: 250, // MMF = 2.5%
+    initialMarginFractionBPS: 1000, // IMF = 10%, Max leverage = 10
+    maintenanceMarginFractionBPS: 500, // MMF = 5%
     maxProfitRateBPS: 25000, // 250%
     assetClass: assetClasses.crypto,
     allowIncreasePosition: true,
@@ -558,12 +558,12 @@ export const config:ConfigStorageMarketConfig[] = [
   {
     marketIndex: 29,
     assetId: ethers.utils.formatBytes32String("WIF"),
-    maxLongPositionSize: ethers.utils.parseUnits(String(250_000), 30),
-    maxShortPositionSize: ethers.utils.parseUnits(String(250_000), 30),
+    maxLongPositionSize: ethers.utils.parseUnits(String(150_000), 30),
+    maxShortPositionSize: ethers.utils.parseUnits(String(150_000), 30),
     increasePositionFeeRateBPS: 7, // 0.05%
     decreasePositionFeeRateBPS: 7, // 0.05%
-    initialMarginFractionBPS: 500, // IMF = 5%, Max leverage = 20
-    maintenanceMarginFractionBPS: 250, // MMF = 2.5%
+    initialMarginFractionBPS: 1000, // IMF = 10%, Max leverage = 10
+    maintenanceMarginFractionBPS: 500, // MMF = 5%
     maxProfitRateBPS: 25000, // 250%
     assetClass: assetClasses.crypto,
     allowIncreasePosition: true,
@@ -577,12 +577,12 @@ export const config:ConfigStorageMarketConfig[] = [
   {
     marketIndex: 30,
     assetId: ethers.utils.formatBytes32String("BONK"),
-    maxLongPositionSize: ethers.utils.parseUnits(String(100_000), 30),
-    maxShortPositionSize: ethers.utils.parseUnits(String(100_000), 30),
+    maxLongPositionSize: ethers.utils.parseUnits(String(250_000), 30),
+    maxShortPositionSize: ethers.utils.parseUnits(String(250_000), 30),
     increasePositionFeeRateBPS: 5, // 0.05%
     decreasePositionFeeRateBPS: 5, // 0.05%
-    initialMarginFractionBPS: 2000, // IMF = 20%, Max leverage = 5
-    maintenanceMarginFractionBPS: 1000, // MMF = 1%
+    initialMarginFractionBPS: 500, // IMF = 5%, Max leverage = 20
+    maintenanceMarginFractionBPS: 250, // MMF = 2.5%
     maxProfitRateBPS: 25000, // 250%
     assetClass: assetClasses.crypto,
     allowIncreasePosition: true,
