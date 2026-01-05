@@ -32,7 +32,7 @@ export const SET_LIMITS_CONFIG  = [
   
   { marketIndex: 28, positionSizeLimit: 150_000, tradeSizeLimit: 150_000 },
   { marketIndex: 29, positionSizeLimit: 150_000, tradeSizeLimit: 150_000 },
-  { marketIndex: 30, positionSizeLimit: 250_000, tradeSizeLimit: 250_000 },
+  { marketIndex: 30, positionSizeLimit: 150_000, tradeSizeLimit: 150_000 },
   { marketIndex: 31, positionSizeLimit: 250_000, tradeSizeLimit: 250_000 },
   { marketIndex: 32, positionSizeLimit: 180_000, tradeSizeLimit: 180_000 },
 
