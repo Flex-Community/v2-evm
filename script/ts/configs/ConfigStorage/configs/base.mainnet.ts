@@ -598,8 +598,8 @@ export const config:ConfigStorageMarketConfig[] = [
     assetId: ethers.utils.formatBytes32String("TAO"),
     maxLongPositionSize: ethers.utils.parseUnits(String(250_000), 30),
     maxShortPositionSize: ethers.utils.parseUnits(String(250_000), 30),
-    increasePositionFeeRateBPS: 5, // 0.05%
-    decreasePositionFeeRateBPS: 5, // 0.05%
+    increasePositionFeeRateBPS: 7, // 0.07%
+    decreasePositionFeeRateBPS: 7, // 0.07%
     initialMarginFractionBPS: 500, // IMF = 5%, Max leverage = 20
     maintenanceMarginFractionBPS: 250, // MMF = 0.25%
     maxProfitRateBPS: 25000, // 250%
@@ -617,8 +617,8 @@ export const config:ConfigStorageMarketConfig[] = [
     assetId: ethers.utils.formatBytes32String("JUP"),
     maxLongPositionSize: ethers.utils.parseUnits(String(180_000), 30),
     maxShortPositionSize: ethers.utils.parseUnits(String(180_000), 30),
-    increasePositionFeeRateBPS: 5, // 0.05%
-    decreasePositionFeeRateBPS: 5, // 0.05%
+    increasePositionFeeRateBPS: 7, // 0.05%
+    decreasePositionFeeRateBPS: 7, // 0.05%
     initialMarginFractionBPS: 1000, // IMF = 10%, Max leverage = 10
     maintenanceMarginFractionBPS: 500, // MMF = 0.5%
     maxProfitRateBPS: 25000, // 250%
