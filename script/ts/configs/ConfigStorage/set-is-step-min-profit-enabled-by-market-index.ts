@@ -14,38 +14,38 @@ async function main(chainId: number) {
     { marketIndex: 1, isEnabled: false },
     { marketIndex: 2, isEnabled: false },
 
-    { marketIndex: 3, isEnabled: true },
-    { marketIndex: 4, isEnabled: true },
-    { marketIndex: 5, isEnabled: true },
-    { marketIndex: 6, isEnabled: true },
-    { marketIndex: 7, isEnabled: true },
-    { marketIndex: 8, isEnabled: true },
-    { marketIndex: 9, isEnabled: true },
-    { marketIndex: 10, isEnabled: true },
-    { marketIndex: 11, isEnabled: true },
-    { marketIndex: 12, isEnabled: true },
-    { marketIndex: 13, isEnabled: true },
-    { marketIndex: 14, isEnabled: true },
-    { marketIndex: 15, isEnabled: true },
-    { marketIndex: 16, isEnabled: true },
-    { marketIndex: 17, isEnabled: true },
-    { marketIndex: 18, isEnabled: true },
-    { marketIndex: 19, isEnabled: true },
-    { marketIndex: 20, isEnabled: true },
-    { marketIndex: 21, isEnabled: true },
+    { marketIndex: 3, isEnabled: false },
+    { marketIndex: 4, isEnabled: false },
+    { marketIndex: 5, isEnabled: false },
+    { marketIndex: 6, isEnabled: false },
+    { marketIndex: 7, isEnabled: false },
+    { marketIndex: 8, isEnabled: false },
+    { marketIndex: 9, isEnabled: false },
+    { marketIndex: 10, isEnabled: false },
+    { marketIndex: 11, isEnabled: false },
+    { marketIndex: 12, isEnabled: false },
+    { marketIndex: 13, isEnabled: false },
+    { marketIndex: 14, isEnabled: false },
+    { marketIndex: 15, isEnabled: false },
+    { marketIndex: 16, isEnabled: false },
+    { marketIndex: 17, isEnabled: false },
+    { marketIndex: 18, isEnabled: false },
+    { marketIndex: 19, isEnabled: false },
+    { marketIndex: 20, isEnabled: false },
+    { marketIndex: 21, isEnabled: false },
     
-    { marketIndex: 22, isEnabled: true }, // XAU
-    { marketIndex: 23, isEnabled: true }, // USOIL
-    { marketIndex: 24, isEnabled: true }, // AAPL
-    { marketIndex: 25, isEnabled: true }, // MSTR 
-    { marketIndex: 26, isEnabled: true }, // TSLA
-    { marketIndex: 27, isEnabled: true }, // NVDA
+    { marketIndex: 22, isEnabled: false }, // XAU
+    { marketIndex: 23, isEnabled: false }, // USOIL
+    { marketIndex: 24, isEnabled: false }, // AAPL
+    { marketIndex: 25, isEnabled: false }, // MSTR 
+    { marketIndex: 26, isEnabled: false }, // TSLA
+    { marketIndex: 27, isEnabled: false }, // NVDA
 
-    { marketIndex: 28, isEnabled: true }, // FARTCOIN
-    { marketIndex: 29, isEnabled: true }, // WIF
-    { marketIndex: 30, isEnabled: true }, // BONK
-    { marketIndex: 31, isEnabled: true }, // TAO
-    { marketIndex: 32, isEnabled: true }, // JUP
+    { marketIndex: 28, isEnabled: false }, // FARTCOIN
+    { marketIndex: 29, isEnabled: false }, // WIF
+    { marketIndex: 30, isEnabled: false }, // BONK
+    { marketIndex: 31, isEnabled: false }, // TAO
+    { marketIndex: 32, isEnabled: false }, // JUP
 
   ];
 
