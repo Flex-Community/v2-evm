@@ -615,12 +615,12 @@ export const config:ConfigStorageMarketConfig[] = [
   {
     marketIndex: 32,
     assetId: ethers.utils.formatBytes32String("JUP"),
-    maxLongPositionSize: ethers.utils.parseUnits(String(250_000), 30),
-    maxShortPositionSize: ethers.utils.parseUnits(String(250_000), 30),
-    increasePositionFeeRateBPS: 7, // 0.05%
-    decreasePositionFeeRateBPS: 7, // 0.05%
-    initialMarginFractionBPS: 500, // IMF = 5%, Max leverage = 20
-    maintenanceMarginFractionBPS: 250, // MMF = 0.25%
+    maxLongPositionSize: ethers.utils.parseUnits(String(150_000), 30),
+    maxShortPositionSize: ethers.utils.parseUnits(String(150_000), 30),
+    increasePositionFeeRateBPS: 7, // 0.07%
+    decreasePositionFeeRateBPS: 7, // 0.07%
+    initialMarginFractionBPS: 1000, // IMF = 10%, Max leverage = 10
+    maintenanceMarginFractionBPS: 500, // MMF = 5%
     maxProfitRateBPS: 25000, // 250%
     assetClass: assetClasses.crypto,
     allowIncreasePosition: true,
