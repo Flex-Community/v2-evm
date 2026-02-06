@@ -11,41 +11,41 @@ async function main(chainId: number) {
   const deployer = await signers.deployer(chainId);
 
   const inputs = [
-    { marketIndex: 0, minProfitDuration: 2 },
-    { marketIndex: 1, minProfitDuration: 2 },
-    { marketIndex: 2, minProfitDuration: 2 },
+    { marketIndex: 0, minProfitDuration: 60 },
+    { marketIndex: 1, minProfitDuration: 60 },
+    { marketIndex: 2, minProfitDuration: 60 },
 
-    { marketIndex: 3, minProfitDuration: 2 },
-    { marketIndex: 4, minProfitDuration: 2 },
-    { marketIndex: 5, minProfitDuration: 2 },
-    { marketIndex: 6, minProfitDuration: 2 },
-    { marketIndex: 7, minProfitDuration: 2 },
-    { marketIndex: 8, minProfitDuration: 2 },
-    { marketIndex: 9, minProfitDuration: 2 },
-    { marketIndex: 10, minProfitDuration: 2 },
-    { marketIndex: 11, minProfitDuration: 2 },
-    { marketIndex: 12, minProfitDuration: 2 },
-    { marketIndex: 13, minProfitDuration: 2 },
-    { marketIndex: 14, minProfitDuration: 2 },
-    { marketIndex: 15, minProfitDuration: 2 },
-    { marketIndex: 16, minProfitDuration: 2 },
-    { marketIndex: 17, minProfitDuration: 2 },
-    { marketIndex: 18, minProfitDuration: 2 },
-    { marketIndex: 19, minProfitDuration: 2 },
-    { marketIndex: 20, minProfitDuration: 2 },
-    { marketIndex: 21, minProfitDuration: 2 },
-    { marketIndex: 22, minProfitDuration: 2 }, // XAU
-    { marketIndex: 23, minProfitDuration: 2 }, // USOIL
-    { marketIndex: 24, minProfitDuration: 2 }, // AAPL
-    { marketIndex: 25, minProfitDuration: 2 }, // MSTR
-    { marketIndex: 26, minProfitDuration: 2 }, // TSLA
-    { marketIndex: 27, minProfitDuration: 2 }, // NVDA
+    { marketIndex: 3, minProfitDuration: 60 },
+    { marketIndex: 4, minProfitDuration: 60 },
+    { marketIndex: 5, minProfitDuration: 60 },
+    { marketIndex: 6, minProfitDuration: 60 },
+    { marketIndex: 7, minProfitDuration: 60 },
+    { marketIndex: 8, minProfitDuration: 60 },
+    { marketIndex: 9, minProfitDuration: 60 },
+    { marketIndex: 10, minProfitDuration: 60 },
+    { marketIndex: 11, minProfitDuration: 60 },
+    { marketIndex: 12, minProfitDuration: 60 },
+    { marketIndex: 13, minProfitDuration: 60 },
+    { marketIndex: 14, minProfitDuration: 60 },
+    { marketIndex: 15, minProfitDuration: 60 },
+    { marketIndex: 16, minProfitDuration: 60 },
+    { marketIndex: 17, minProfitDuration: 60 },
+    { marketIndex: 18, minProfitDuration: 60 },
+    { marketIndex: 19, minProfitDuration: 60 },
+    { marketIndex: 20, minProfitDuration: 60 },
+    { marketIndex: 21, minProfitDuration: 60 },
+    { marketIndex: 22, minProfitDuration: 60 }, // XAU
+    { marketIndex: 23, minProfitDuration: 60 }, // USOIL
+    { marketIndex: 24, minProfitDuration: 60 }, // AAPL
+    { marketIndex: 25, minProfitDuration: 60 }, // MSTR
+    { marketIndex: 26, minProfitDuration: 60 }, // TSLA
+    { marketIndex: 27, minProfitDuration: 60 }, // NVDA
 
-    { marketIndex: 28, minProfitDuration: 2 }, // FARTCOIN
-    { marketIndex: 29, minProfitDuration: 2 }, // WIF
-    { marketIndex: 30, minProfitDuration: 2 }, // BONK
-    { marketIndex: 31, minProfitDuration: 2 }, // TAO
-    { marketIndex: 32, minProfitDuration: 2 }, // JUP
+    { marketIndex: 28, minProfitDuration: 60 }, // FARTCOIN
+    { marketIndex: 29, minProfitDuration: 60 }, // WIF
+    { marketIndex: 30, minProfitDuration: 60 }, // BONK
+    { marketIndex: 31, minProfitDuration: 60 }, // TAO
+    { marketIndex: 32, minProfitDuration: 60 }, // JUP
   ];
 
   const ownerWrapper = new OwnerWrapper(chainId, deployer);
