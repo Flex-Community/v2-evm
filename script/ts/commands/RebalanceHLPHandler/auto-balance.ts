@@ -27,6 +27,12 @@ const TARGET_PROPORTIONS = {
   WETH: 0.20, // 20%
 };
 
+/** Max USD size per single swap (E30 format) to limit slippage. 10_000 USD */
+const MAX_SWAP_SIZE_USD_E30 = ethers.BigNumber.from(10_000).mul(ethers.BigNumber.from(10).pow(30));
+
+/** Slippage tolerance in basis points (25 bps = 0.25%). Min amount out = expected * (10000 - this) / 10000 */
+const SLIPPAGE_TOLERANCE_BPS = 10;
+
 async function main(chainId: number) {
   const config = loadConfig(chainId);
   const chainInfo = chains[chainId];
@@ -188,7 +194,9 @@ async function main(chainId: number) {
     for (const [fromSymbol, fromInfo] of surplus) {
       const [toSymbol, toInfo] = sortedDeficit[0]; // Use the largest deficit token
       
-      const swapAmountUSD = fromInfo.difference.abs(); // How much USD to swap
+      const swapAmountUSD = fromInfo.difference.abs().gt(MAX_SWAP_SIZE_USD_E30)
+        ? MAX_SWAP_SIZE_USD_E30
+        : fromInfo.difference.abs(); // Cap to limit slippage
       
       // Convert USD amount to token amount for fromToken
       // Formula: tokenAmount = (swapAmountUSD * currentBalanceRaw) / currentValueUSD
@@ -251,12 +259,13 @@ async function main(chainId: number) {
     // Convert USD amount to token amount for toToken (minAmountOut)
     const toTokenInfo = tokenInfos[swap.toToken];
     const minAmountOutInTokens = swap.estimatedToAmount
-      .mul(99).div(100) // 1% slippage tolerance
+      .mul(10000 - SLIPPAGE_TOLERANCE_BPS).div(10000)
       .mul(ethers.BigNumber.from(10).pow(toTokenInfo.decimals))
       .div(ethers.BigNumber.from(10).pow(30)); // Convert from E30 to token decimals
 
     console.log(`📥 Expected to receive: ${ethers.utils.formatUnits(minAmountOutInTokens, toTokenInfo.decimals)} ${swap.toToken}`);
-    console.log(`📊 Min amount out (with 1% slippage): ${ethers.utils.formatUnits(minAmountOutInTokens, toTokenInfo.decimals)} ${swap.toToken}`);
+    console.log(`📊 Min amount out (with ${SLIPPAGE_TOLERANCE_BPS / 100}% slippage):` + 
+      `${ethers.utils.formatUnits(minAmountOutInTokens, toTokenInfo.decimals)} ${swap.toToken}`);
 
     const swapParams = {
       amountIn: swap.fromAmount,
