@@ -14,7 +14,7 @@ export const config:ConfigStorageMarketConfig[] = [
     maintenanceMarginFractionBPS: 100, // MMF = 0.5%
     maxProfitRateBPS: 250000, // 2500%
     assetClass: assetClasses.crypto,
-    allowIncreasePosition: true,
+    allowIncreasePosition: false,
     active: true,
     fundingRate: {
       maxSkewScaleUSD: ethers.utils.parseUnits(String(2_000_000_000), 30), // 2000 M
@@ -33,7 +33,7 @@ export const config:ConfigStorageMarketConfig[] = [
     maintenanceMarginFractionBPS: 100, // MMF = 0.5%
     maxProfitRateBPS: 250000, // 2500%
     assetClass: assetClasses.crypto,
-    allowIncreasePosition: true,
+    allowIncreasePosition: false,
     active: true,
     fundingRate: {
       maxSkewScaleUSD: ethers.utils.parseUnits(String(3_000_000_000), 30), // 3000 M
@@ -52,7 +52,7 @@ export const config:ConfigStorageMarketConfig[] = [
     maintenanceMarginFractionBPS: 200, // MMF = 1%
     maxProfitRateBPS: 125000, // 1250%
     assetClass: assetClasses.crypto,
-    allowIncreasePosition: true,
+    allowIncreasePosition: false,
     active: true,
     fundingRate: {
       maxSkewScaleUSD: ethers.utils.parseUnits(String(200_000_000), 30), // 3000 M
@@ -72,7 +72,7 @@ export const config:ConfigStorageMarketConfig[] = [
     maintenanceMarginFractionBPS: 200, // MMF = 1%
     maxProfitRateBPS: 125000, // 1250%
     assetClass: assetClasses.crypto,
-    allowIncreasePosition: true,
+    allowIncreasePosition: false,
     active: true,
     fundingRate: {
       maxSkewScaleUSD: ethers.utils.parseUnits(String(200_000_000), 30), // 3000 M
@@ -91,7 +91,7 @@ export const config:ConfigStorageMarketConfig[] = [
     maintenanceMarginFractionBPS: 200, // MMF = 1%
     maxProfitRateBPS: 125000, // 1250%
     assetClass: assetClasses.crypto,
-    allowIncreasePosition: true,
+    allowIncreasePosition: false,
     active: true,
     fundingRate: {
       maxSkewScaleUSD: ethers.utils.parseUnits(String(200_000_000), 30), // 3000 M
@@ -110,7 +110,7 @@ export const config:ConfigStorageMarketConfig[] = [
     maintenanceMarginFractionBPS: 500, // MMF = 1%
     maxProfitRateBPS: 50000, // 500%
     assetClass: assetClasses.crypto,
-    allowIncreasePosition: true,
+    allowIncreasePosition: false,
     active: true,
     fundingRate: {
       maxSkewScaleUSD: ethers.utils.parseUnits(String(200_000_000), 30), // 3000 M
@@ -129,7 +129,7 @@ export const config:ConfigStorageMarketConfig[] = [
     maintenanceMarginFractionBPS: 200, // MMF = 1%
     maxProfitRateBPS: 125000, // 1250%
     assetClass: assetClasses.crypto,
-    allowIncreasePosition: true,
+    allowIncreasePosition: false,
     active: true,
     fundingRate: {
       maxSkewScaleUSD: ethers.utils.parseUnits(String(200_000_000), 30), // 3000 M
@@ -148,7 +148,7 @@ export const config:ConfigStorageMarketConfig[] = [
     maintenanceMarginFractionBPS: 200, // MMF = 1%
     maxProfitRateBPS: 125000, // 1250%
     assetClass: assetClasses.crypto,
-    allowIncreasePosition: true,
+    allowIncreasePosition: false,
     active: true,
     fundingRate: {
       maxSkewScaleUSD: ethers.utils.parseUnits(String(200_000_000), 30), // 3000 M
@@ -167,7 +167,7 @@ export const config:ConfigStorageMarketConfig[] = [
     maintenanceMarginFractionBPS: 500, // MMF = 1%
     maxProfitRateBPS: 50000, // 500%
     assetClass: assetClasses.crypto,
-    allowIncreasePosition: true,
+    allowIncreasePosition: false,
     active: true,
     fundingRate: {
       maxSkewScaleUSD: ethers.utils.parseUnits(String(200_000_000), 30), // 3000 M
@@ -186,7 +186,7 @@ export const config:ConfigStorageMarketConfig[] = [
     maintenanceMarginFractionBPS: 500, // MMF = 1%
     maxProfitRateBPS: 50000, // 500%
     assetClass: assetClasses.crypto,
-    allowIncreasePosition: true,
+    allowIncreasePosition: false,
     active: true,
     fundingRate: {
       maxSkewScaleUSD: ethers.utils.parseUnits(String(200_000_000), 30), // 3000 M
@@ -205,7 +205,7 @@ export const config:ConfigStorageMarketConfig[] = [
     maintenanceMarginFractionBPS: 1000, // MMF = 1%
     maxProfitRateBPS: 25000, // 250%
     assetClass: assetClasses.crypto,
-    allowIncreasePosition: true,
+    allowIncreasePosition: false,
     active: true,
     fundingRate: {
       maxSkewScaleUSD: ethers.utils.parseUnits(String(200_000_000), 30), // 3000 M
@@ -224,7 +224,7 @@ export const config:ConfigStorageMarketConfig[] = [
     maintenanceMarginFractionBPS: 200, // MMF = 1%
     maxProfitRateBPS: 125000, // 1250%
     assetClass: assetClasses.crypto,
-    allowIncreasePosition: true,
+    allowIncreasePosition: false,
     active: true,
     fundingRate: {
       maxSkewScaleUSD: ethers.utils.parseUnits(String(200_000_000), 30), // 3000 M
@@ -243,7 +243,7 @@ export const config:ConfigStorageMarketConfig[] = [
     maintenanceMarginFractionBPS: 500, // MMF = 1%
     maxProfitRateBPS: 50000, // 500%
     assetClass: assetClasses.crypto,
-    allowIncreasePosition: true,
+    allowIncreasePosition: false,
     active: true,
     fundingRate: {
       maxSkewScaleUSD: ethers.utils.parseUnits(String(200_000_000), 30), // 3000 M
@@ -262,7 +262,7 @@ export const config:ConfigStorageMarketConfig[] = [
     maintenanceMarginFractionBPS: 500, // MMF = 1%
     maxProfitRateBPS: 50000, // 500%
     assetClass: assetClasses.crypto,
-    allowIncreasePosition: true,
+    allowIncreasePosition: false,
     active: true,
     fundingRate: {
       maxSkewScaleUSD: ethers.utils.parseUnits(String(200_000_000), 30), // 3000 M
@@ -281,7 +281,7 @@ export const config:ConfigStorageMarketConfig[] = [
     maintenanceMarginFractionBPS: 1000, // MMF = 1%
     maxProfitRateBPS: 25000, // 250%
     assetClass: assetClasses.crypto,
-    allowIncreasePosition: true,
+    allowIncreasePosition: false,
     active: true,
     fundingRate: {
       maxSkewScaleUSD: ethers.utils.parseUnits(String(200_000_000), 30), // 3000 M
@@ -300,7 +300,7 @@ export const config:ConfigStorageMarketConfig[] = [
     maintenanceMarginFractionBPS: 500, // MMF = 1%
     maxProfitRateBPS: 50000, // 500%
     assetClass: assetClasses.crypto,
-    allowIncreasePosition: true,
+    allowIncreasePosition: false,
     active: true,
     fundingRate: {
       maxSkewScaleUSD: ethers.utils.parseUnits(String(200_000_000), 30), // 3000 M
@@ -319,7 +319,7 @@ export const config:ConfigStorageMarketConfig[] = [
     maintenanceMarginFractionBPS: 1000, // MMF = 1%
     maxProfitRateBPS: 25000, // 250%
     assetClass: assetClasses.crypto,
-    allowIncreasePosition: true,
+    allowIncreasePosition: false,
     active: true,
     fundingRate: {
       maxSkewScaleUSD: ethers.utils.parseUnits(String(200_000_000), 30), // 3000 M
@@ -338,7 +338,7 @@ export const config:ConfigStorageMarketConfig[] = [
     maintenanceMarginFractionBPS: 1000, // MMF = 1%
     maxProfitRateBPS: 25000, // 250%
     assetClass: assetClasses.crypto,
-    allowIncreasePosition: true,
+    allowIncreasePosition: false,
     active: true,
     fundingRate: {
       maxSkewScaleUSD: ethers.utils.parseUnits(String(200_000_000), 30), // 3000 M
@@ -357,7 +357,7 @@ export const config:ConfigStorageMarketConfig[] = [
     maintenanceMarginFractionBPS: 1000, // MMF = 1%
     maxProfitRateBPS: 25000, // 250%
     assetClass: assetClasses.crypto,
-    allowIncreasePosition: true,
+    allowIncreasePosition: false,
     active: true,
     fundingRate: {
       maxSkewScaleUSD: ethers.utils.parseUnits(String(200_000_000), 30), // 3000 M
@@ -376,7 +376,7 @@ export const config:ConfigStorageMarketConfig[] = [
     maintenanceMarginFractionBPS: 1000, // MMF = 1%
     maxProfitRateBPS: 25000, // 250%
     assetClass: assetClasses.crypto,
-    allowIncreasePosition: true,
+    allowIncreasePosition: false,
     active: true,
     fundingRate: {
       maxSkewScaleUSD: ethers.utils.parseUnits(String(200_000_000), 30), // 3000 M
@@ -395,7 +395,7 @@ export const config:ConfigStorageMarketConfig[] = [
     maintenanceMarginFractionBPS: 1000, // MMF = 1%
     maxProfitRateBPS: 25000, // 250%
     assetClass: assetClasses.crypto,
-    allowIncreasePosition: true,
+    allowIncreasePosition: false,
     active: true,
     fundingRate: {
       maxSkewScaleUSD: ethers.utils.parseUnits(String(200_000_000), 30), // 3000 M
@@ -414,7 +414,7 @@ export const config:ConfigStorageMarketConfig[] = [
     maintenanceMarginFractionBPS: 1000, // MMF = 1%
     maxProfitRateBPS: 25000, // 250%
     assetClass: assetClasses.crypto,
-    allowIncreasePosition: true,
+    allowIncreasePosition: false,
     active: true,
     fundingRate: {
       maxSkewScaleUSD: ethers.utils.parseUnits(String(200_000_000), 30), // 3000 M
@@ -433,7 +433,7 @@ export const config:ConfigStorageMarketConfig[] = [
     maintenanceMarginFractionBPS: 1000, // MMF = 1%
     maxProfitRateBPS: 25000, // 250%
     assetClass: assetClasses.commodities,
-    allowIncreasePosition: true,
+    allowIncreasePosition: false,
     active: true,
     fundingRate: {
       maxSkewScaleUSD: ethers.utils.parseUnits(String(10_000_000_000), 30), // 200 M
@@ -452,7 +452,7 @@ export const config:ConfigStorageMarketConfig[] = [
     maintenanceMarginFractionBPS: 1000, // MMF = 1%
     maxProfitRateBPS: 25000, // 250%
     assetClass: assetClasses.commodities,
-    allowIncreasePosition: true,
+    allowIncreasePosition: false,
     active: true,
     fundingRate: {
       maxSkewScaleUSD: ethers.utils.parseUnits(String(10_000_000_000), 30), // 200 M
@@ -471,7 +471,7 @@ export const config:ConfigStorageMarketConfig[] = [
     maintenanceMarginFractionBPS: 1000, // MMF = 1%
     maxProfitRateBPS: 25000, // 250%
     assetClass: assetClasses.equity,
-    allowIncreasePosition: true,
+    allowIncreasePosition: false,
     active: true,
     fundingRate: {
       maxSkewScaleUSD: ethers.utils.parseUnits(String(1_000_000_000), 30), // 200 M
@@ -490,7 +490,7 @@ export const config:ConfigStorageMarketConfig[] = [
     maintenanceMarginFractionBPS: 1000, // MMF = 1%
     maxProfitRateBPS: 25000, // 250%
     assetClass: assetClasses.equity,
-    allowIncreasePosition: true,
+    allowIncreasePosition: false,
     active: true,
     fundingRate: {
       maxSkewScaleUSD: ethers.utils.parseUnits(String(1_000_000_000), 30), // 200 M
@@ -509,7 +509,7 @@ export const config:ConfigStorageMarketConfig[] = [
     maintenanceMarginFractionBPS: 1000, // MMF = 1%
     maxProfitRateBPS: 25000, // 250%
     assetClass: assetClasses.equity,
-    allowIncreasePosition: true,
+    allowIncreasePosition: false,
     active: true,
     fundingRate: {
       maxSkewScaleUSD: ethers.utils.parseUnits(String(1_000_000_000), 30), // 200 M
@@ -528,7 +528,7 @@ export const config:ConfigStorageMarketConfig[] = [
     maintenanceMarginFractionBPS: 1000, // MMF = 1%
     maxProfitRateBPS: 25000, // 250%
     assetClass: assetClasses.equity,
-    allowIncreasePosition: true,
+    allowIncreasePosition: false,
     active: true,
     fundingRate: {
       maxSkewScaleUSD: ethers.utils.parseUnits(String(1_000_000_000), 30), // 200 M
@@ -547,7 +547,7 @@ export const config:ConfigStorageMarketConfig[] = [
     maintenanceMarginFractionBPS: 500, // MMF = 5%
     maxProfitRateBPS: 25000, // 250%
     assetClass: assetClasses.crypto,
-    allowIncreasePosition: true,
+    allowIncreasePosition: false,
     active: true,
     fundingRate: {
       maxSkewScaleUSD: ethers.utils.parseUnits(String(200_000_000), 30), // 200 M
@@ -566,7 +566,7 @@ export const config:ConfigStorageMarketConfig[] = [
     maintenanceMarginFractionBPS: 500, // MMF = 5%
     maxProfitRateBPS: 25000, // 250%
     assetClass: assetClasses.crypto,
-    allowIncreasePosition: true,
+    allowIncreasePosition: false,
     active: true,
     fundingRate: {
       maxSkewScaleUSD: ethers.utils.parseUnits(String(200_000_000), 30), // 200 M
@@ -585,7 +585,7 @@ export const config:ConfigStorageMarketConfig[] = [
     maintenanceMarginFractionBPS: 500, // MMF = 5%
     maxProfitRateBPS: 25000, // 250%
     assetClass: assetClasses.crypto,
-    allowIncreasePosition: true,
+    allowIncreasePosition: false,
     active: true,
     fundingRate: {
       maxSkewScaleUSD: ethers.utils.parseUnits(String(200_000_000), 30), // 200 M
@@ -604,7 +604,7 @@ export const config:ConfigStorageMarketConfig[] = [
     maintenanceMarginFractionBPS: 500, // MMF = 5%
     maxProfitRateBPS: 25000, // 250%
     assetClass: assetClasses.crypto,
-    allowIncreasePosition: true,
+    allowIncreasePosition: false,
     active: true,
     fundingRate: {
       maxSkewScaleUSD: ethers.utils.parseUnits(String(200_000_000), 30), // 200 M
@@ -623,7 +623,7 @@ export const config:ConfigStorageMarketConfig[] = [
     maintenanceMarginFractionBPS: 500, // MMF = 5%
     maxProfitRateBPS: 25000, // 250%
     assetClass: assetClasses.crypto,
-    allowIncreasePosition: true,
+    allowIncreasePosition: false,
     active: true,
     fundingRate: {
       maxSkewScaleUSD: ethers.utils.parseUnits(String(200_000_000), 30), // 200 M
