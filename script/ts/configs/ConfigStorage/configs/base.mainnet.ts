@@ -15,7 +15,7 @@ export const config:ConfigStorageMarketConfig[] = [
     maxProfitRateBPS: 250000, // 2500%
     assetClass: assetClasses.crypto,
     allowIncreasePosition: false,
-    active: true,
+    active: false,
     fundingRate: {
       maxSkewScaleUSD: ethers.utils.parseUnits(String(2_000_000_000), 30), // 2000 M
       maxFundingRate: ethers.utils.parseUnits("8", 18), // 900% per day
@@ -301,7 +301,7 @@ export const config:ConfigStorageMarketConfig[] = [
     maxProfitRateBPS: 50000, // 500%
     assetClass: assetClasses.crypto,
     allowIncreasePosition: false,
-    active: true,
+    active: false,
     fundingRate: {
       maxSkewScaleUSD: ethers.utils.parseUnits(String(200_000_000), 30), // 3000 M
       maxFundingRate: ethers.utils.parseUnits("8", 18), // 800% per day
@@ -529,7 +529,7 @@ export const config:ConfigStorageMarketConfig[] = [
     maxProfitRateBPS: 25000, // 250%
     assetClass: assetClasses.equity,
     allowIncreasePosition: false,
-    active: true,
+    active: false,
     fundingRate: {
       maxSkewScaleUSD: ethers.utils.parseUnits(String(1_000_000_000), 30), // 200 M
       maxFundingRate: ethers.utils.parseUnits("8", 18), // 800% per day
