@@ -16,22 +16,32 @@ async function main() {
   const newImplementation = await upgrades.prepareUpgrade(TARGET_ADDRESS, Contract);
   console.log(`[upgrades/CrossMarginHandler] Done`);
 
-  if (network.name != "tenderly") {
-    console.log(`Verifying on-chain...`);
-    await run("verify:verify", {
-      address: String(newImplementation),
-      constructorArguments: [],
+  try {
+    if (network.name != "tenderly") {
+      console.log(`Verifying on-chain...`);
+      await run("verify:verify", {
+        address: String(newImplementation),
+        constructorArguments: [],
+      });
+    }
+  
+  } catch (error) {
+    console.error('Error verifying contract on Etherscan', error);
+  }
+  
+  try {
+    console.log(`[upgrades/CrossMarginHandler] Verify contract on Tenderly`);
+    await tenderly.verify({
+      address: newImplementation.toString(),
+      name: "CrossMarginHandler",
     });
+  } catch (error) {
+    console.error('Error verifying contract on Tenderly', error);
   }
 
   console.log(`[upgrades/CrossMarginHandler] New CrossMarginHandler Implementation address: ${newImplementation}`);
   await proxyAdminWrapper.upgrade(TARGET_ADDRESS, newImplementation.toString());
 
-  console.log(`[upgrades/CrossMarginHandler] Verify contract on Tenderly`);
-  await tenderly.verify({
-    address: newImplementation.toString(),
-    name: "CrossMarginHandler",
-  });
 }
 
 main().catch((error) => {

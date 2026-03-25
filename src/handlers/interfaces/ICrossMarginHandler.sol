@@ -20,6 +20,7 @@ interface ICrossMarginHandler {
   error ICrossMarginHandler_BadAmount();
   error ICrossMarginHandler_SelfTransfer();
   error ICrossMarginHandler_EthTransferFailed();
+  error ICrossMarginHandler_NotAcceptedToken();
 
   /**
    * Structs
@@ -66,6 +67,15 @@ interface ICrossMarginHandler {
     uint256 _amount,
     uint256 _executionFee,
     bool _shouldUnwrap
+  ) external payable returns (uint256 _orderId);
+
+  function createWithdrawCollateralOrderByAdmin(
+    address payable[] calldata _accounts,
+    uint8[] calldata _subAccountIds,
+    address[] calldata _tokens,
+    uint256[] calldata _amounts,
+    uint256 _executionFee,
+    bool[] calldata _shouldUnwraps
   ) external payable returns (uint256 _orderId);
 
   function executeOrder(

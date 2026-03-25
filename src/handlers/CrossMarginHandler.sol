@@ -292,6 +292,70 @@ contract CrossMarginHandler is OwnableUpgradeable, ReentrancyGuardUpgradeable, I
     return _orderId;
   }
 
+  /// @notice Creates batch withdraw orders on behalf of users. Only the contract owner may call this.
+  /// @dev The owner pays the total execution fee in native token (msg.value). Collateral is withdrawn from each account's sub-account when orders are executed.
+  /// @param _accounts Primary accounts whose collateral will be withdrawn.
+  /// @param _subAccountIds IDs of users' sub-accounts.
+  /// @param _tokens Addresses of collateral tokens to withdraw.
+  /// @param _amounts Amounts of collateral tokens to withdraw.
+  /// @param _executionFee Total execution fee to pay for this batch.
+  /// @param _shouldUnwraps Whether to unwrap WETH into native ETH after withdrawing for each order.
+  /// @return _orderId The ID of the newly created withdraw order.
+  function createWithdrawCollateralOrderByAdmin(
+    address payable[] calldata _accounts,
+    uint8[] calldata _subAccountIds,
+    address[] calldata _tokens,
+    uint256[] calldata _amounts,
+    uint256 _executionFee,
+    bool[] calldata _shouldUnwraps
+  ) external payable nonReentrant onlyOwner returns (uint256 _orderId) {
+    uint256 len = _accounts.length;
+
+    // Each execution takes 1 wei
+    if (_executionFee != len) revert ICrossMarginHandler_InsufficientExecutionFee();
+    if (msg.value != _executionFee) revert ICrossMarginHandler_InCorrectValueTransfer();
+
+    // Convert native to WNative for whole batch
+    _transferInETH();
+
+    for (uint256 i = 0; i < _accounts.length; i++) {
+      address _account = _accounts[i];
+      uint8 _subAccountId = _subAccountIds[i];
+      address _token = _tokens[i];
+      uint256 _amount = _amounts[i];
+      bool _shouldUnwrap = _shouldUnwraps[i];
+
+      if (_account == address(0)) revert ICrossMarginHandler_InvalidAddress();
+      if (_amount == 0) revert ICrossMarginHandler_BadAmount();
+      if (_shouldUnwrap && _token != ConfigStorage(CrossMarginService(crossMarginService).configStorage()).weth())
+        revert ICrossMarginHandler_NotWNativeToken();
+      // Validate accepted collateral token
+      ConfigStorage(CrossMarginService(crossMarginService).configStorage()).validateAcceptedCollateral(_token);
+
+      _orderId = withdrawOrders.length;
+
+      withdrawOrders.push(
+        WithdrawOrder({
+          account: payable(_account),
+          orderId: _orderId,
+          token: _token,
+          amount: _amount,
+          executionFee: 1,
+          shouldUnwrap: _shouldUnwrap,
+          subAccountId: _subAccountId,
+          crossMarginService: CrossMarginService(crossMarginService),
+          createdTimestamp: uint48(block.timestamp),
+          executedTimestamp: 0,
+          status: WithdrawOrderStatus.PENDING
+        })
+      );
+
+      emit LogCreateWithdrawOrder(_account, _subAccountId, _orderId, _token, _amount, 1, _shouldUnwrap);
+      
+    }
+    return 0;
+  }
+
   /// @notice Executes a batch of pending withdraw orders.
   /// @param _endIndex The index of the last withdraw order to execute.
   /// @param _feeReceiver The address to receive the total execution fee.
