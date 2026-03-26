@@ -22,16 +22,16 @@ interface TokenInfo {
 }
 
 const TARGET_PROPORTIONS = {
-  WBTC: 0.40, // 40%
-  USDC: 0.40, // 40%
-  WETH: 0.20, // 20%
+  WBTC: 0.0, // 40%
+  USDC: 1.0, // 40%
+  WETH: 0.0, // 20%
 };
 
 /** Max USD size per single swap (E30 format) to limit slippage. 10_000 USD */
-const MAX_SWAP_SIZE_USD_E30 = ethers.BigNumber.from(10_000).mul(ethers.BigNumber.from(10).pow(30));
+const MAX_SWAP_SIZE_USD_E30 = ethers.BigNumber.from(5_000).mul(ethers.BigNumber.from(10).pow(30));
 
 /** Slippage tolerance in basis points (25 bps = 0.25%). Min amount out = expected * (10000 - this) / 10000 */
-const SLIPPAGE_TOLERANCE_BPS = 10;
+const SLIPPAGE_TOLERANCE_BPS = 100;
 
 async function main(chainId: number) {
   const config = loadConfig(chainId);

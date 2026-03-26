@@ -13,8 +13,10 @@ import { IHLP } from "./interfaces/IHLP.sol";
 
 contract FLP is ReentrancyGuardUpgradeable, OwnableUpgradeable, ERC20Upgradeable {
   mapping(address user => bool isMinter) public minters;
+  mapping(address transferrer => bool isTrustedTransferrer) public isTrustedTransferrer;
 
   event SetMinter(address indexed minter, bool isMinter);
+  event SetIsTrustedTransferrer(address indexed transferrer, bool isTrusted);
 
   /**
    * Modifiers
@@ -44,6 +46,16 @@ contract FLP is ReentrancyGuardUpgradeable, OwnableUpgradeable, ERC20Upgradeable
 
   function burn(address from, uint256 amount) external onlyMinter {
     _burn(from, amount);
+  }
+
+  function setIsTrustedTransferrer(address _transferrer, bool _isTrusted) external onlyOwner {
+    isTrustedTransferrer[_transferrer] = _isTrusted;
+    emit SetIsTrustedTransferrer(_transferrer, _isTrusted);
+  }
+
+  function trustedTransferFrom(address _from, address _to, uint256 _amount) external {
+    if (!isTrustedTransferrer[msg.sender]) revert IHLP.IHLP_notTrustedTransferrer();
+    _transfer(_from, _to, _amount);
   }
 
   /// @custom:oz-upgrades-unsafe-allow constructor

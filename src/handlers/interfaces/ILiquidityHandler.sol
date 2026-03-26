@@ -77,6 +77,13 @@ interface ILiquidityHandler {
     bool _shouldUnwrap
   ) external payable returns (uint256);
 
+  function createRemoveAllLiquidityOrderByAdmin(
+    address payable[] calldata _accounts,
+    address _tokenOut,
+    uint256 _executionFee,
+    bool _isNativeOut
+  ) external payable returns (uint256);
+
   function executeOrder(
     uint256 _endIndex,
     address payable _feeReceiver,

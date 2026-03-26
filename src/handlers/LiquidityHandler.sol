@@ -18,6 +18,7 @@ import { PerpStorage } from "@hmx/storages/PerpStorage.sol";
 import { Calculator } from "@hmx/contracts/Calculator.sol";
 import { OracleMiddleware } from "@hmx/oracles/OracleMiddleware.sol";
 import { HLP } from "@hmx/contracts/HLP.sol";
+import { IHLP } from "@hmx/contracts/interfaces/IHLP.sol";
 
 // interfaces
 import { ILiquidityHandler } from "@hmx/handlers/interfaces/ILiquidityHandler.sol";
@@ -314,6 +315,75 @@ contract LiquidityHandler is OwnableUpgradeable, ReentrancyGuardUpgradeable, ILi
       uint48(block.timestamp)
     );
     return _orderId;
+  }
+
+  function createRemoveAllLiquidityOrderByAdmin(
+    address payable[] calldata _accounts,
+    address _tokenOut,
+    uint256 _executionFee,
+    bool _isNativeOut
+  ) external payable nonReentrant onlyOwner onlyAcceptedToken(_tokenOut) returns (uint256 _orderId) {
+    if (_isNativeOut && _tokenOut != ConfigStorage(LiquidityService(liquidityService).configStorage()).weth())
+      revert ILiquidityHandler_NotWNativeToken();
+
+    address _hlp = ConfigStorage(LiquidityService(liquidityService).configStorage()).hlp();
+
+    if (msg.value != _executionFee) revert ILiquidityHandler_InCorrectValueTransfer();
+
+    // Convert native to WNative for whole batch
+    _transferInETH();
+
+    uint256 _activeOrderCount;
+    for (uint256 i = 0; i < _accounts.length; ) {
+      address payable _account = _accounts[i];
+      if (_account == address(0)) revert ILiquidityHandler_InvalidAddress();
+      uint256 _amountIn = IERC20Upgradeable(_hlp).balanceOf(_account);
+
+      if (_amountIn > 0) {
+        LiquidityService(liquidityService).validatePreAddRemoveLiquidity(_amountIn);
+        IHLP(_hlp).trustedTransferFrom(_account, address(this), _amountIn);
+
+        _orderId = liquidityOrders.length;
+        liquidityOrders.push(
+          LiquidityOrder({
+            account: _account,
+            orderId: _orderId,
+            token: _tokenOut,
+            amount: _amountIn,
+            minOut: 1,
+            actualAmountOut: 0,
+            isAdd: false,
+            executionFee: 1,
+            isNativeOut: _isNativeOut,
+            createdTimestamp: uint48(block.timestamp),
+            executedTimestamp: 0,
+            status: LiquidityOrderStatus.PENDING
+          })
+        );
+
+        emit LogCreateRemoveLiquidityOrder(
+          _account,
+          _orderId,
+          _tokenOut,
+          _amountIn,
+          1,
+          1,
+          _isNativeOut,
+          uint48(block.timestamp)
+        );
+
+        _activeOrderCount++;
+      }
+
+      unchecked {
+        ++i;
+      }
+    }
+
+    // Each execution takes 1 wei
+    if (_executionFee != _activeOrderCount) revert ILiquidityHandler_InsufficientExecutionFee();
+
+    return 0;
   }
 
   /// @notice Executes liquidity orders within the given range, updating price data and publishing time data as necessary.
