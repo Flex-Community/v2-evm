@@ -11,6 +11,8 @@ import { CrossMarginHandler_Base, MockErc20 } from "./CrossMarginHandler_Base.t.
 //   - Try deposit token collateral with not accepted token (Ex. Fx, Equity)
 //   - Try deposit token collateral with insufficient allowance
 //   - Try deposit token collateral with exceed trader's balance
+//   - Try deposit while pauseDepositCollateral is true (ERC20 and native)
+//   - Try setPauseDepositCollateral from non-owner
 // - success
 //   - Try deposit token collateral with initial balance and test accounting balance
 //   - Try deposit token collateral with initial balance and test deposit token lists
@@ -97,6 +99,35 @@ contract CrossMarginHandler_DepositCollateral is CrossMarginHandler_Base {
     vm.stopPrank();
   }
 
+  function testRevert_handler_depositCollateral_whenPaused_erc20() external {
+    assertEq(crossMarginHandler.pauseDepositCollateral(), false);
+    crossMarginHandler.setPauseDepositCollateral(true);
+    assertEq(crossMarginHandler.pauseDepositCollateral(), true);
+
+    weth.mint(ALICE, 1 ether);
+    vm.startPrank(ALICE);
+    weth.approve(address(crossMarginHandler), 1 ether);
+    vm.expectRevert(abi.encodeWithSignature("ICrossMarginHandler_DepositCollateralPaused()"));
+    crossMarginHandler.depositCollateral(SUB_ACCOUNT_NO, address(weth), 1 ether, false);
+    vm.stopPrank();
+  }
+
+  function testRevert_handler_depositCollateral_whenPaused_native() external {
+    crossMarginHandler.setPauseDepositCollateral(true);
+
+    vm.deal(ALICE, 1 ether);
+    vm.startPrank(ALICE);
+    vm.expectRevert(abi.encodeWithSignature("ICrossMarginHandler_DepositCollateralPaused()"));
+    crossMarginHandler.depositCollateral{ value: 1 ether }(SUB_ACCOUNT_NO, address(weth), 1 ether, true);
+    vm.stopPrank();
+  }
+
+  function testRevert_handler_setPauseDepositCollateral_onlyOwner() external {
+    vm.prank(ALICE);
+    vm.expectRevert("Ownable: caller is not the owner");
+    crossMarginHandler.setPauseDepositCollateral(true);
+  }
+
   /**
    * TEST CORRECTNESS
    */
@@ -176,5 +207,22 @@ contract CrossMarginHandler_DepositCollateral is CrossMarginHandler_Base {
     assertEq(vaultStorage.traderBalances(subAccount, address(weth)), 20 ether);
     assertEq(weth.balanceOf(address(vaultStorage)), 20 ether);
     assertEq(ALICE.balance, 0 ether);
+  }
+
+  function testCorrectness_handler_depositCollateral_afterUnpause() external {
+    crossMarginHandler.setPauseDepositCollateral(true);
+
+    weth.mint(ALICE, 5 ether);
+    vm.startPrank(ALICE);
+    weth.approve(address(crossMarginHandler), 5 ether);
+    vm.expectRevert(abi.encodeWithSignature("ICrossMarginHandler_DepositCollateralPaused()"));
+    crossMarginHandler.depositCollateral(SUB_ACCOUNT_NO, address(weth), 5 ether, false);
+    vm.stopPrank();
+
+    crossMarginHandler.setPauseDepositCollateral(false);
+    simulateAliceDepositToken(address(weth), 5 ether);
+
+    address subAccount = getSubAccount(ALICE, SUB_ACCOUNT_NO);
+    assertEq(vaultStorage.traderBalances(subAccount, address(weth)), 5 ether);
   }
 }

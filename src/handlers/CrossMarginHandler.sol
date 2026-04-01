@@ -50,6 +50,7 @@ contract CrossMarginHandler is OwnableUpgradeable, ReentrancyGuardUpgradeable, I
   event LogSetCrossMarginService(address indexed oldCrossMarginService, address newCrossMarginService);
   event LogSetPyth(address indexed oldPyth, address newPyth);
   event LogSetOrderExecutor(address executor, bool isAllow);
+  event LogSetPauseDepositCollateral(bool oldPaused, bool newPaused);
   event LogSetMinExecutionFee(uint256 oldValue, uint256 newValue);
   event LogMaxExecutionChuck(uint256 oldValue, uint256 newValue);
   event LogCreateWithdrawOrder(
@@ -99,6 +100,8 @@ contract CrossMarginHandler is OwnableUpgradeable, ReentrancyGuardUpgradeable, I
   mapping(address => WithdrawOrder[]) public subAccountExecutedWithdrawOrders; // subAccount -> executed orders
   mapping(address => bool) public orderExecutors; // address -> flag to execute
   mapping(address user => bool isBanned) banlist;
+  /// @notice When true, `depositCollateral` reverts for all callers until unset by owner.
+  bool public pauseDepositCollateral;
 
   /// @notice Initializes the CrossMarginHandler contract with the provided configuration parameters.
   /// @param _crossMarginService Address of the CrossMarginService contract.
@@ -215,6 +218,7 @@ contract CrossMarginHandler is OwnableUpgradeable, ReentrancyGuardUpgradeable, I
     uint256 _amount,
     bool _shouldWrap
   ) external payable nonReentrant onlyAcceptedToken(_token) {
+    if (pauseDepositCollateral) revert ICrossMarginHandler_DepositCollateralPaused();
     if (_amount == 0) revert ICrossMarginHandler_BadAmount();
     // SLOAD
     CrossMarginService _crossMarginService = CrossMarginService(crossMarginService);
@@ -584,6 +588,13 @@ contract CrossMarginHandler is OwnableUpgradeable, ReentrancyGuardUpgradeable, I
     for (uint256 i = 0; i < users.length; i++) {
       banlist[users[i]] = isBanned[i];
     }
+  }
+
+  /// @notice Pauses or unpauses user deposits via `depositCollateral`. Callable only by owner.
+  /// @param _pause When true, `depositCollateral` reverts until set back to false.
+  function setPauseDepositCollateral(bool _pause) external onlyOwner {
+    emit LogSetPauseDepositCollateral(pauseDepositCollateral, _pause);
+    pauseDepositCollateral = _pause;
   }
 
   /// @notice setMinExecutionFee

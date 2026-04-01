@@ -21,6 +21,7 @@ interface ICrossMarginHandler {
   error ICrossMarginHandler_SelfTransfer();
   error ICrossMarginHandler_EthTransferFailed();
   error ICrossMarginHandler_NotAcceptedToken();
+  error ICrossMarginHandler_DepositCollateralPaused();
 
   /**
    * Structs
@@ -92,6 +93,10 @@ interface ICrossMarginHandler {
   function setPyth(address _address) external;
 
   function setOrderExecutor(address _executor, bool _isAllow) external;
+
+  function setPauseDepositCollateral(bool _pause) external;
+
+  function pauseDepositCollateral() external view returns (bool);
 
   function setMinExecutionFee(uint256 _newMinExecutionFee) external;
 
